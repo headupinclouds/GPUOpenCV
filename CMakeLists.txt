@@ -1,6 +1,3 @@
-# Copyright (c) 2014, Ruslan Baratov
-# All rights reserved.
-
 cmake_minimum_required(VERSION 3.0)
 project(GPUOpenCV)
 
