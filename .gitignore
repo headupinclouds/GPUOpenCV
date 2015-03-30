@@ -27,5 +27,9 @@
 *.out
 *.app
 
+# Emacs
+
+*.*~
+
 build/*
 .DS_Store

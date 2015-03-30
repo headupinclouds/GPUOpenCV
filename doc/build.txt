@@ -1,0 +1,112 @@
+Currently two dependencies for the iOS build are opencv2.framework and GPUImage.framework.  
+For the non iOS build, opencv will also be a depedency. In that case (OS X and *nix platforms)
+we can rely on find_package to look for existing installations on the system, otherwise it 
+can rely on cmake's external package or the hunter mechanism for building.
+
+Later I'll be interested in including the gtest package with examples on both iOS (via polly)
+and OS X + *nix.  I'm also considering glog for logging.
+
+======================================================================================================
+=================================== OpenCV ===========================================================
+======================================================================================================
+
+The opencv2.framework is built using a python front end to the opencv cmake build system.  
+These builds can take a very long time, so the build-from-source step should be run only as needed. 
+
+The process is summarized here:
+http://docs.opencv.org/doc/tutorials/introduction/ios_install/ios_install.html
+
+which boils down to:
+
+============ opencv ios build ========
+cd ~/<my_working _directory>
+git clone https://github.com/Itseez/opencv.git  # perhaps via tag 3.0.0-beta
+
+cd /
+sudo ln -s /Applications/Xcode.app/Contents/Developer Developer
+
+cd ~/<my_working_directory>
+python opencv/platforms/ios/build_framework.py ios
+=======================================
+
+============ opencv osx static libs ========
+cd ${WORKDIR}/
+(mkdir -p opencv && cd opencv && \
+git clone https://github.com/Itseez/opencv.git && \
+cd opencv && \
+git checkout -b 3.0.0-beta ae4cb571ab4fdca3c7be57f0de19743f823daf3f )  # or wget, etc
+
+# or ...
+# wget https://github.com/Itseez/opencv/archive/3.0.0-beta.tar.gz
+
+mkdir -p opencv-3.0.0-osx-static && cd  opencv-3.0.0-osx-static && \
+cmake -H. ../opencv  \
+-DWITH_GSTREAMER:BOOL="0" \
+-DWITH_OPENCLAMDBLAS:BOOL="0" \
+-DWITH_CUDA:BOOL="0" \
+-DWITH_FFMPEG:BOOL="0" \
+-DWITH_WEBP:BOOL="0" \
+-DWITH_OPENEXR:BOOL="0" \
+-DBUILD_PACKAGE:BOOL="0" \
+-DWITH_GIGEAPI:BOOL="0" \
+-DWITH_CUFFT:BOOL="0" \
+-DWITH_V4L:BOOL="0" \
+-DWITH_OPENCLAMDFFT:BOOL="0" \
+-DWITH_VTK:BOOL="0" \
+-DBUILD_PERF_TESTS:BOOL="0" \
+-DBUILD_DOCS:BOOL="0" \
+-DWITH_1394:BOOL="0" \
+-DWITH_LIBV4L:BOOL="0" \
+-DWITH_EIGEN:BOOL="1" \
+-DBUILD_OPENEXR:BOOL="0" \
+-DBUILD_FAT_JAVA_LIB:BOOL="0" \
+-DBUILD_SHARED_LIBS:BOOL="0" \
+-DWITH_OPENCL:BOOL="0" \
+-DWITH_PVAPI:BOOL="0" 
+
+This should use the default GCD for parallel_for operations.  We'll use TBB options for Android and *Nix builds (see below)
+
+With version and sha1 it might look like this in hunter.
+
+hunter_add_version(
+    PACKAGE_NAME
+    OpenCV
+    VERSION
+    "3.0.0-beta"
+    URL
+    "https://github.com/Itseez/opencv/archive/3.0.0-beta.tar.gz"
+    SHA1
+    ae4cb571ab4fdca3c7be57f0de19743f823daf3f  
+)
+=======================================
+
+======== opencv *nix static lib =======
+
+Same as above but with TBB enabled
+
+-DBUILD_TBB:BOOL="1" -DWITH_TBB:BOOL="1" 
+
+=======================================
+
+
+======================================================================================================
+========================== GPUImage ==================================================================
+======================================================================================================
+
+https://github.com/BradLarson/GPUImage
+
+This is an iOS and OS X only framework.  It is provided on github with manual xcode projects.  A build.sh
+script is provided for building a framework in the top level directory.  I had to update that for my
+current iOS 8.2 sdk and for OS X bash file globbing.  I've included the build script in the GPUImage
+subdirectory of this doc folder: doc/GPUImage/build.sh.  
+
+Option 1: It probably makes sense to leverage this build.sh script if possible, instead of creating 
+CMakeLists.txt files for all of GPUImage, given that it is an Apple only library.  
+
+Option 2: Create cmakelists.txt and build to framework 
+
+Option3 : The manual xcode projects could also be imported into the cmake generated project for this repository.
+
+
+
+

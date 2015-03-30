@@ -17,10 +17,14 @@ set(CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR})
 
 ### Hunter snapshot that will be used ###
 include("cmake/HunterGate.cmake")
-#HunterGate(
-#    URL "https://github.com/ruslo/hunter/archive/v0.5.10.tar.gz"
-#    SHA1 "d534c6f3ab9c53c325ca4d3607f65bbf981913db"
-#)
+HunterGate(
+    URL "https://github.com/ruslo/hunter/archive/v0.5.10.tar.gz"
+    SHA1 "d534c6f3ab9c53c325ca4d3607f65bbf981913db"
+)
+
+hunter_add_package(OpenCV)
+
+find_library(OpenCV_release OpenCV ${OPENCV_ROOT})
 
 ### Download dependencies ###
 #hunter_add_package(GTest)
