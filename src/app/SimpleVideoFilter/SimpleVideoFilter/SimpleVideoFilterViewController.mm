@@ -1,5 +1,30 @@
 #import "SimpleVideoFilterViewController.h"
 
+#import "GPUImage/GPUImageRawDataInput.h"
+#import "GPUImage/GPUImageRawDataOutput.h"
+
+#include <opencv2/core/core.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/highgui/highgui.hpp>
+
+#define DO_CPU_TO_GPU 1
+
+@interface SimpleVideoFilterViewController()
+{
+    GPUImageRawDataInput *rawIn;
+    GPUImageRawDataOutput *rawOut;
+    
+    cv::Mat4b input;
+    cv::Mat4b output;
+    cv::Size frameSize;
+}
+@end
+
+static CGSize GPUImageConvert(const cv::Size &size)
+{
+    return CGSizeMake(size.width, size.height);
+}
+
 @implementation SimpleVideoFilterViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -21,80 +46,83 @@
 {
     [super viewDidLoad];
     
-    videoCamera = [[GPUImageVideoCamera alloc] initWithSessionPreset:AVCaptureSessionPreset640x480 cameraPosition:AVCaptureDevicePositionBack];
-//    videoCamera = [[GPUImageVideoCamera alloc] initWithSessionPreset:AVCaptureSessionPreset640x480 cameraPosition:AVCaptureDevicePositionFront];
-//    videoCamera = [[GPUImageVideoCamera alloc] initWithSessionPreset:AVCaptureSessionPreset1280x720 cameraPosition:AVCaptureDevicePositionBack];
-//    videoCamera = [[GPUImageVideoCamera alloc] initWithSessionPreset:AVCaptureSessionPreset1920x1080 cameraPosition:AVCaptureDevicePositionBack];
-
+    filterView = (GPUImageView *)self.view;
+    
+    videoCamera = [[GPUImageVideoCamera alloc] initWithSessionPreset:AVCaptureSessionPresetHigh cameraPosition:AVCaptureDevicePositionFront];
     videoCamera.outputImageOrientation = UIInterfaceOrientationPortrait;
     videoCamera.horizontallyMirrorFrontFacingCamera = NO;
     videoCamera.horizontallyMirrorRearFacingCamera = NO;
-
+    
+    {
+        // http://stackoverflow.com/questions/18563259/avcapturesession-image-dimensions-with-gpuimage
+        AVCaptureVideoDataOutput *output = [[[videoCamera captureSession] outputs] lastObject];
+        NSDictionary* outputSettings = [output videoSettings];
+        frameSize.width = [[outputSettings objectForKey:@"Width"]  longValue];
+        frameSize.height = [[outputSettings objectForKey:@"Height"] longValue];
+        if (UIInterfaceOrientationIsPortrait([videoCamera outputImageOrientation]))
+            std::swap(frameSize.width, frameSize.height);
+    }
+    
+    // ((((((((( Disable unused OpenGL ES 2.0 features )))))))))
+    glDepthMask(GL_FALSE);
+    glDisable(GL_BLEND);
+    glDisable(GL_DEPTH_TEST);
+    glDisable(GL_CULL_FACE);
+    glDisable(GL_DITHER);
+    
     filter = [[GPUImageSepiaFilter alloc] init];
-    
-//    filter = [[GPUImageTiltShiftFilter alloc] init];
-//    [(GPUImageTiltShiftFilter *)filter setTopFocusLevel:0.65];
-//    [(GPUImageTiltShiftFilter *)filter setBottomFocusLevel:0.85];
-//    [(GPUImageTiltShiftFilter *)filter setBlurSize:1.5];
-//    [(GPUImageTiltShiftFilter *)filter setFocusFallOffRate:0.2];
-    
-//    filter = [[GPUImageSketchFilter alloc] init];
-//    filter = [[GPUImageSmoothToonFilter alloc] init];
-//    GPUImageRotationFilter *rotationFilter = [[GPUImageRotationFilter alloc] initWithRotation:kGPUImageRotateRightFlipVertical];
-    
     [videoCamera addTarget:filter];
     
-    //filterView = [[GPUImageView alloc] init];
-    //self.view = filterView;
+    // (((((( GPU => CPU ))))))
+    rawOut = [[GPUImageRawDataOutput alloc] initWithImageSize:GPUImageConvert(frameSize) resultsInBGRAFormat:YES];
+    rawOut.enabled = YES;
+    [filter addTarget:rawOut];
     
-    GPUImageView *filterView = (GPUImageView *)self.view; // for linker to pick up the obj c code
-    [filter addTarget:filterView];
-//    filterView.fillMode = kGPUImageFillModeStretch;
-//    filterView.fillMode = kGPUImageFillModePreserveAspectRatioAndFill;
+    // (((((( CPU => GPU ))))))
+    std::vector<GLubyte> bytes( frameSize.area() * 4 );
+    rawIn =  [[GPUImageRawDataInput alloc] initWithBytes:&bytes[0] size:GPUImageConvert(frameSize)];
+    [rawIn addTarget:filterView];
     
-    // Record a movie for 10 s and store it in /Documents, visible via iTunes file sharing
+    // Creaate weak references to avoid circular reference inside block/closure:
+    __weak SimpleVideoFilterViewController *weakSelf = self;
+    __weak GPUImageRawDataOutput *weakOut = rawOut;
+    __weak GPUImageRawDataInput *weakIn = rawIn;
     
-    NSString *pathToMovie = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/Movie.m4v"];
-    unlink([pathToMovie UTF8String]); // If a file already exists, AVAssetWriter won't let you record new frames, so delete the old movie
-    NSURL *movieURL = [NSURL fileURLWithPath:pathToMovie];
-    movieWriter = [[GPUImageMovieWriter alloc] initWithMovieURL:movieURL size:CGSizeMake(480.0, 640.0)];
-//    movieWriter = [[GPUImageMovieWriter alloc] initWithMovieURL:movieURL size:CGSizeMake(640.0, 480.0)];
-//    movieWriter = [[GPUImageMovieWriter alloc] initWithMovieURL:movieURL size:CGSizeMake(720.0, 1280.0)];
-//    movieWriter = [[GPUImageMovieWriter alloc] initWithMovieURL:movieURL size:CGSizeMake(1080.0, 1920.0)];
-    [filter addTarget:movieWriter];
+    // write low res grayscale image to alpha channel of full res color image
+    [[UIScreen mainScreen] setBrightness:1.0];
+    
+    [rawOut setNewFrameAvailableBlock:^
+     {
+         __strong  SimpleVideoFilterViewController *strongSelf = weakSelf;
+         __strong GPUImageRawDataOutput *strongOut = weakOut;
+         
+         // NSLog(@"seconds = %f", CMTimeGetSeconds(strongSelf->frameTime));
+         
+         [strongOut lockFramebufferForReading];
+         GLubyte *ptr = [strongOut rawBytesForImage];
+         if(ptr != NULL)
+         {
+             
+             strongSelf->input = cv::Mat4b( strongSelf->frameSize.height, strongSelf->frameSize.width, reinterpret_cast<cv::Vec4b*>(ptr), [strongOut bytesPerRowInOutput] );
+             strongSelf->input.copyTo(strongSelf->output); // just for testing
+             
+             // Draw something to prove the data has really round tripped from the GPU
+             cv::Mat &canvas = strongSelf->output;
+             cv::circle(canvas, {canvas.cols/2, canvas.rows/2}, canvas.cols/4, {0,255,0}, 4, CV_AA);
+             
+             __strong GPUImageRawDataInput *strongIn = weakIn;
+             
+             // Use this to upload CPU processed images
+             CGSize canvasSize = CGSizeMake(strongSelf->output.cols, strongSelf->output.rows);
+             [strongIn forceProcessingAtSize:canvasSize];
+             [strongIn updateDataFromBytes:strongSelf->output.ptr() size:GPUImageConvert(strongSelf->output.size())];
+             [strongIn processData];
+         }
+         [strongOut unlockFramebufferAfterReading];
+     }];
+    
     
     [videoCamera startCameraCapture];
-    
-    double delayToStartRecording = 0.5;
-    dispatch_time_t startTime = dispatch_time(DISPATCH_TIME_NOW, delayToStartRecording * NSEC_PER_SEC);
-    dispatch_after(startTime, dispatch_get_main_queue(), ^(void){
-        NSLog(@"Start recording");
-        
-        videoCamera.audioEncodingTarget = movieWriter;
-        [movieWriter startRecording];
-
-//        NSError *error = nil;
-//        if (![videoCamera.inputCamera lockForConfiguration:&error])
-//        {
-//            NSLog(@"Error locking for configuration: %@", error);
-//        }
-//        [videoCamera.inputCamera setTorchMode:AVCaptureTorchModeOn];
-//        [videoCamera.inputCamera unlockForConfiguration];
-
-        double delayInSeconds = 30.0;
-        dispatch_time_t stopTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-        dispatch_after(stopTime, dispatch_get_main_queue(), ^(void){
-            
-            [filter removeTarget:movieWriter];
-            videoCamera.audioEncodingTarget = nil;
-            [movieWriter finishRecording];
-            NSLog(@"Movie completed");
-            
-//            [videoCamera.inputCamera lockForConfiguration:nil];
-//            [videoCamera.inputCamera setTorchMode:AVCaptureTorchModeOff];
-//            [videoCamera.inputCamera unlockForConfiguration];
-        });
-    });
 }
 
 - (void)viewDidUnload

@@ -54,10 +54,7 @@ if(APPLE)
     endif()
   endmacro(ADD_FRAMEWORK)
 
-
-
 endif()
-
 
 add_subdirectory(src)
 

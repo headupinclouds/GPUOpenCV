@@ -26,6 +26,11 @@
     // Despite the "Unknown class MyClass in Interface Builder file." error printed at runtime,
     // this issue has nothing to do with Interface Builder, but rather with the linker, which is
     // not linking a class because no code uses it directly.
+    //
+    // Apparently this will work, if I can find the cmake flags for it:
+    // 
+    // -all_load -ObjC flags to the Other Linker Flags
+    
     GPUImageView * filterView = [[GPUImageView alloc] init];
     
     rootViewController.view.frame = [[UIScreen mainScreen] bounds];
