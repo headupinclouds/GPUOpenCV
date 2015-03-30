@@ -1,0 +1,747 @@
+// !$*UTF8*$!
+{
+       archiveVersion = 1;
+       classes = {
+       };
+       objectVersion = 46;
+       objects = {
+
+/* Begin PBXAggregateTarget section */
+              896A0BC4CC4C44BE9A86FB9B /* ALL_BUILD */ = {
+                     isa = PBXAggregateTarget;
+                     buildConfigurationList = D6733ED1C0014A2C9B5EE493 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
+                     buildPhases = (
+                            789FD773CB9448B28E2D2BE8 /* CMake Rules */,
+                     );
+                     dependencies = (
+                            1E6691F1ECE346C7A8162A08 /* PBXTargetDependency */,
+                            70239E0E482043D0AA03ABCC /* PBXTargetDependency */,
+                     );
+                     name = ALL_BUILD;
+                     productName = ALL_BUILD;
+              };
+              5540566EC64B4189ABA0D3F9 /* ZERO_CHECK */ = {
+                     isa = PBXAggregateTarget;
+                     buildConfigurationList = 08A22F13A0C840DA880DB670 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
+                     buildPhases = (
+                            ABD0B3D600794FF0AE755A03 /* CMake Rules */,
+                     );
+                     dependencies = (
+                     );
+                     name = ZERO_CHECK;
+                     productName = ZERO_CHECK;
+              };
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+227ADED5612E4637822FCD17 /* /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/CMakeFiles/SimpleVideoFilter.dir/Info.plist */ = {isa = PBXBuildFile; fileRef = C0E2E1062EAE41ACA176ACD7 /* /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/CMakeFiles/SimpleVideoFilter.dir/Info.plist */; settings = { COMPILER_FLAGS = ""; }; };
+6F8A2700BA4A421BA31E70C0 /* /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = E18243661EAF47098C2CADB2 /* /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/CMakeLists.txt */; settings = { COMPILER_FLAGS = ""; }; };
+F19A2F3D6CB246BCB1951EE1 /* /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/SimpleVideoFilterAppDelegate.h */ = {isa = PBXBuildFile; fileRef = FE74C42C4D9C41C38004048D /* /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/SimpleVideoFilterAppDelegate.h */; settings = { COMPILER_FLAGS = ""; }; };
+19AC0BC1EC1D45DD8E4AAB46 /* /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/SimpleVideoFilterAppDelegate.mm */ = {isa = PBXBuildFile; fileRef = 01522DCDCFB244D0B1DF77A4 /* /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/SimpleVideoFilterAppDelegate.mm */; settings = { COMPILER_FLAGS = ""; }; };
+2343096299974F178EEE7C93 /* /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/SimpleVideoFilterViewController.h */ = {isa = PBXBuildFile; fileRef = E9616D3BCBA94E428C69B718 /* /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/SimpleVideoFilterViewController.h */; settings = { COMPILER_FLAGS = ""; }; };
+4175DE3DD75840A8A27F12B4 /* /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/SimpleVideoFilterViewController.mm */ = {isa = PBXBuildFile; fileRef = 638FE2BA21C44570B441BBE1 /* /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/SimpleVideoFilterViewController.mm */; settings = { COMPILER_FLAGS = ""; }; };
+6A2EA49259964A23A69DF685 /* /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/SimpleVideoFilterViewController.xib */ = {isa = PBXBuildFile; fileRef = 72E55540C2F94F0F946B2441 /* /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/SimpleVideoFilterViewController.xib */; settings = { COMPILER_FLAGS = ""; }; };
+E1DF7C4DD3FF468AA3599EFB /* /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/main.m */ = {isa = PBXBuildFile; fileRef = BCDD643E574A4992AE602CEA /* /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/main.m */; settings = { COMPILER_FLAGS = ""; }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXBuildStyle section */
+              2DDF6488068F4EE8B13B0876 /*  */ = {
+                     isa = PBXBuildStyle;
+              };
+              A8FD1E2D46F44BE1A82E649A /* Debug */ = {
+                     isa = PBXBuildStyle;
+                     buildSettings = {
+                            COPY_PHASE_STRIP = NO;
+                     };
+                     name = Debug;
+              };
+              DDCACB896B73439E93E98E2B /* Release */ = {
+                     isa = PBXBuildStyle;
+                     buildSettings = {
+                            COPY_PHASE_STRIP = NO;
+                     };
+                     name = Release;
+              };
+              3408A9C498B248328877932F /* MinSizeRel */ = {
+                     isa = PBXBuildStyle;
+                     buildSettings = {
+                            COPY_PHASE_STRIP = NO;
+                     };
+                     name = MinSizeRel;
+              };
+              37BBB17F510B4930AC11CD93 /* RelWithDebInfo */ = {
+                     isa = PBXBuildStyle;
+                     buildSettings = {
+                            COPY_PHASE_STRIP = NO;
+                     };
+                     name = RelWithDebInfo;
+              };
+/* End PBXBuildStyle section */
+
+/* Begin PBXContainerItemProxy section */
+              213A4645C2544E70862455D3 /* PBXContainerItemProxy */ = {
+                     isa = PBXContainerItemProxy;
+                     containerPortal = C418B61F54FF48849A568D21 /* Project object */;
+                     proxyType = 1;
+                     remoteGlobalIDString = 72EC94B86846426FB338F184;
+                     remoteInfo = SimpleVideoFilter;
+              };
+              2ADE3ACD0D864C538A7FAC75 /* PBXContainerItemProxy */ = {
+                     isa = PBXContainerItemProxy;
+                     containerPortal = C418B61F54FF48849A568D21 /* Project object */;
+                     proxyType = 1;
+                     remoteGlobalIDString = 5540566EC64B4189ABA0D3F9;
+                     remoteInfo = ZERO_CHECK;
+              };
+              1669A34F97764750B332FD6B /* PBXContainerItemProxy */ = {
+                     isa = PBXContainerItemProxy;
+                     containerPortal = C418B61F54FF48849A568D21 /* Project object */;
+                     proxyType = 1;
+                     remoteGlobalIDString = 5540566EC64B4189ABA0D3F9;
+                     remoteInfo = ZERO_CHECK;
+              };
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+A6BD71C185F645FC8E406603 /* /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = "sourcecode.text"; fileEncoding = 4; name = "CMakeLists.txt"; path = "CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
+C0E2E1062EAE41ACA176ACD7 /* /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/CMakeFiles/SimpleVideoFilter.dir/Info.plist */ = {isa = PBXFileReference; explicitFileType = "sourcecode.text.plist"; fileEncoding = 4; name = "Info.plist"; path = "CMakeFiles/SimpleVideoFilter.dir/Info.plist"; sourceTree = SOURCE_ROOT; };
+E18243661EAF47098C2CADB2 /* /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = "sourcecode.text"; fileEncoding = 4; name = "CMakeLists.txt"; path = "CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
+FE74C42C4D9C41C38004048D /* /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/SimpleVideoFilterAppDelegate.h */ = {isa = PBXFileReference; explicitFileType = "sourcecode.c.h"; fileEncoding = 4; name = "SimpleVideoFilterAppDelegate.h"; path = "SimpleVideoFilterAppDelegate.h"; sourceTree = SOURCE_ROOT; };
+01522DCDCFB244D0B1DF77A4 /* /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/SimpleVideoFilterAppDelegate.mm */ = {isa = PBXFileReference; explicitFileType = "sourcecode.cpp.objcpp"; fileEncoding = 4; name = "SimpleVideoFilterAppDelegate.mm"; path = "SimpleVideoFilterAppDelegate.mm"; sourceTree = SOURCE_ROOT; };
+E9616D3BCBA94E428C69B718 /* /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/SimpleVideoFilterViewController.h */ = {isa = PBXFileReference; explicitFileType = "sourcecode.c.h"; fileEncoding = 4; name = "SimpleVideoFilterViewController.h"; path = "SimpleVideoFilterViewController.h"; sourceTree = SOURCE_ROOT; };
+638FE2BA21C44570B441BBE1 /* /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/SimpleVideoFilterViewController.mm */ = {isa = PBXFileReference; explicitFileType = "sourcecode.cpp.objcpp"; fileEncoding = 4; name = "SimpleVideoFilterViewController.mm"; path = "SimpleVideoFilterViewController.mm"; sourceTree = SOURCE_ROOT; };
+72E55540C2F94F0F946B2441 /* /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/SimpleVideoFilterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "file.xib"; name = "SimpleVideoFilterViewController.xib"; path = "SimpleVideoFilterViewController.xib"; sourceTree = SOURCE_ROOT; };
+BCDD643E574A4992AE602CEA /* /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/main.m */ = {isa = PBXFileReference; explicitFileType = "sourcecode.c.objc"; fileEncoding = 4; name = "main.m"; path = "main.m"; sourceTree = SOURCE_ROOT; };
+6911CEA94CEE41E59DD71AB2 /* SimpleVideoFilter */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = SimpleVideoFilter; refType = 0; sourceTree = BUILT_PRODUCTS_DIR; };
+7F3C4A5209334974B93F64F1 /* /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = "sourcecode.text"; fileEncoding = 4; name = "CMakeLists.txt"; path = "CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+              449E8C911D824215BBB7E4FE  = {
+                     isa = PBXGroup;
+                     children = (
+                            FE12E094FFBE4D54AAC3C5C5 /* Sources */,
+                            B77D57C9E5A14476A73BB228 /* Resources */,
+                            D1D0746985494070AB2BFA0A /* Products */,
+                     );
+                     sourceTree = "<group>";
+              };
+              FE12E094FFBE4D54AAC3C5C5 /* Sources */ = {
+                     isa = PBXGroup;
+                     children = (
+                            2205600FA19C4ED88258B823 /* SimpleVideoFilter */,
+                            3A917450C6F446F29A6564DA /* ALL_BUILD */,
+                            AC76D1300DA644CE8C2722B7 /* ZERO_CHECK */,
+                     );
+                     name = Sources;
+                     sourceTree = "<group>";
+              };
+              B77D57C9E5A14476A73BB228 /* Resources */ = {
+                     isa = PBXGroup;
+                     children = (
+                     );
+                     name = Resources;
+                     sourceTree = "<group>";
+              };
+              2205600FA19C4ED88258B823 /* SimpleVideoFilter */ = {
+                     isa = PBXGroup;
+                     children = (
+                            09472928A08D40948F7520C9 /* Source Files */,
+                            52BC50F4BA734EDF919A18EC /* Header Files */,
+                            34E3F956A8594B75B7CB3726 /* Resources */,
+                            E18243661EAF47098C2CADB2 /* /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/CMakeLists.txt */,
+                            72E55540C2F94F0F946B2441 /* /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/SimpleVideoFilterViewController.xib */,
+                     );
+                     name = SimpleVideoFilter;
+                     sourceTree = "<group>";
+              };
+              09472928A08D40948F7520C9 /* Source Files */ = {
+                     isa = PBXGroup;
+                     children = (
+                            01522DCDCFB244D0B1DF77A4 /* /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/SimpleVideoFilterAppDelegate.mm */,
+                            638FE2BA21C44570B441BBE1 /* /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/SimpleVideoFilterViewController.mm */,
+                            BCDD643E574A4992AE602CEA /* /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/main.m */,
+                     );
+                     name = "Source Files";
+                     sourceTree = "<group>";
+              };
+              52BC50F4BA734EDF919A18EC /* Header Files */ = {
+                     isa = PBXGroup;
+                     children = (
+                            FE74C42C4D9C41C38004048D /* /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/SimpleVideoFilterAppDelegate.h */,
+                            E9616D3BCBA94E428C69B718 /* /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/SimpleVideoFilterViewController.h */,
+                     );
+                     name = "Header Files";
+                     sourceTree = "<group>";
+              };
+              34E3F956A8594B75B7CB3726 /* Resources */ = {
+                     isa = PBXGroup;
+                     children = (
+                            C0E2E1062EAE41ACA176ACD7 /* /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/CMakeFiles/SimpleVideoFilter.dir/Info.plist */,
+                     );
+                     name = Resources;
+                     sourceTree = "<group>";
+              };
+              3A917450C6F446F29A6564DA /* ALL_BUILD */ = {
+                     isa = PBXGroup;
+                     children = (
+                            5B9731F90C9C4542B7C6A144 /* CMake Rules */,
+                            A6BD71C185F645FC8E406603 /* /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/CMakeLists.txt */,
+                     );
+                     name = ALL_BUILD;
+                     sourceTree = "<group>";
+              };
+              5B9731F90C9C4542B7C6A144 /* CMake Rules */ = {
+                     isa = PBXGroup;
+                     children = (
+                     );
+                     name = "CMake Rules";
+                     sourceTree = "<group>";
+              };
+              AC76D1300DA644CE8C2722B7 /* ZERO_CHECK */ = {
+                     isa = PBXGroup;
+                     children = (
+                            CEBC167F5AFA4A8BB502CB8E /* CMake Rules */,
+                            7F3C4A5209334974B93F64F1 /* /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/CMakeLists.txt */,
+                     );
+                     name = ZERO_CHECK;
+                     sourceTree = "<group>";
+              };
+              CEBC167F5AFA4A8BB502CB8E /* CMake Rules */ = {
+                     isa = PBXGroup;
+                     children = (
+                     );
+                     name = "CMake Rules";
+                     sourceTree = "<group>";
+              };
+              D1D0746985494070AB2BFA0A /* Products */ = {
+                     isa = PBXGroup;
+                     children = (
+                            6911CEA94CEE41E59DD71AB2 /* SimpleVideoFilter */,
+                     );
+                     name = Products;
+                     sourceTree = "<group>";
+              };
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+              72EC94B86846426FB338F184 /* SimpleVideoFilter */ = {
+                     isa = PBXNativeTarget;
+                     buildConfigurationList = 8A2961122A5D4C6B9BC2559A /* Build configuration list for PBXNativeTarget "SimpleVideoFilter" */;
+                     buildPhases = (
+                            73DED4E469834EA4B2F95D63 /* Sources */,
+                     );
+                     buildRules = (
+                     );
+                     dependencies = (
+                            5879B0089FD545F0ADCEB54D /* PBXTargetDependency */,
+                     );
+                     name = SimpleVideoFilter;
+                     productName = SimpleVideoFilter;
+                     productReference = 6911CEA94CEE41E59DD71AB2 /* SimpleVideoFilter */;
+                     productType = "com.apple.product-type.application";
+              };
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+              C418B61F54FF48849A568D21 /* Project object */ = {
+                     isa = PBXProject;
+                     attributes = {
+                            BuildIndependentTargetsInParallel = YES;
+                     };
+                     buildConfigurationList = 36CDC0AB04D64A3A975531D4 /* Build configuration list for PBXProject  "SimpleVideoFilter" */;
+                     buildSettings = {
+                     };
+                     buildStyles = (
+                            A8FD1E2D46F44BE1A82E649A /* Debug */,
+                            DDCACB896B73439E93E98E2B /* Release */,
+                            3408A9C498B248328877932F /* MinSizeRel */,
+                            37BBB17F510B4930AC11CD93 /* RelWithDebInfo */,
+                     );
+                     compatibilityVersion = "Xcode 3.2";
+                     hasScannedForEncodings = 0;
+                     mainGroup = 449E8C911D824215BBB7E4FE;
+                     projectDirPath = ".";
+                     projectRoot = "";
+                     targets = (
+                            896A0BC4CC4C44BE9A86FB9B /* ALL_BUILD */,
+                            72EC94B86846426FB338F184 /* SimpleVideoFilter */,
+                            5540566EC64B4189ABA0D3F9 /* ZERO_CHECK */,
+                     );
+              };
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+              742455A9543F40DEB291EB4D /*  */ = {
+                     isa = PBXShellScriptBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                     );
+                     inputPaths = (
+                     );
+                     outputPaths = (
+                     );
+                     runOnlyForDeploymentPostprocessing = 0;
+                     shellPath = /bin/sh;
+                     shellScript = "# shell script goes here
+exit 0";
+                     showEnvVarsInLog = 0;
+              };
+              789FD773CB9448B28E2D2BE8 /* CMake Rules */ = {
+                     isa = PBXShellScriptBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                     );
+                     name = "CMake Rules";
+                     runOnlyForDeploymentPostprocessing = 0;
+                     shellPath = /bin/sh;
+                     shellScript = "make -C /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter -f /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/CMakeScripts/ALL_BUILD_cmakeRulesBuildPhase.make$CONFIGURATION all";
+                     showEnvVarsInLog = 0;
+              };
+              CD0F47FEEB1E48778D62D1E0 /*  */ = {
+                     isa = PBXShellScriptBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                     );
+                     inputPaths = (
+                     );
+                     outputPaths = (
+                     );
+                     runOnlyForDeploymentPostprocessing = 0;
+                     shellPath = /bin/sh;
+                     shellScript = "# shell script goes here
+exit 0";
+                     showEnvVarsInLog = 0;
+              };
+              ABD0B3D600794FF0AE755A03 /* CMake Rules */ = {
+                     isa = PBXShellScriptBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                     );
+                     name = "CMake Rules";
+                     runOnlyForDeploymentPostprocessing = 0;
+                     shellPath = /bin/sh;
+                     shellScript = "make -C /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter -f /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/CMakeScripts/ZERO_CHECK_cmakeRulesBuildPhase.make$CONFIGURATION all";
+                     showEnvVarsInLog = 0;
+              };
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+              73DED4E469834EA4B2F95D63 /* Sources */ = {
+                     isa = PBXSourcesBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                            19AC0BC1EC1D45DD8E4AAB46 /* /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/SimpleVideoFilterAppDelegate.mm */,
+                            4175DE3DD75840A8A27F12B4 /* /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/SimpleVideoFilterViewController.mm */,
+                            E1DF7C4DD3FF468AA3599EFB /* /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/main.m */,
+                     );
+                     runOnlyForDeploymentPostprocessing = 0;
+              };
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+              1E6691F1ECE346C7A8162A08 /* PBXTargetDependency */ = {
+                     isa = PBXTargetDependency;
+                     target = 72EC94B86846426FB338F184 /* SimpleVideoFilter */;
+                     targetProxy = 213A4645C2544E70862455D3 /* PBXContainerItemProxy */;
+              };
+              70239E0E482043D0AA03ABCC /* PBXTargetDependency */ = {
+                     isa = PBXTargetDependency;
+                     target = 5540566EC64B4189ABA0D3F9 /* ZERO_CHECK */;
+                     targetProxy = 2ADE3ACD0D864C538A7FAC75 /* PBXContainerItemProxy */;
+              };
+              5879B0089FD545F0ADCEB54D /* PBXTargetDependency */ = {
+                     isa = PBXTargetDependency;
+                     target = 5540566EC64B4189ABA0D3F9 /* ZERO_CHECK */;
+                     targetProxy = 1669A34F97764750B332FD6B /* PBXContainerItemProxy */;
+              };
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+              4E41F1CBB32346B892E52A67 /* Debug */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            ARCHS = "armv6 armv7";
+                            CLANG_CXX_LANGUAGE_STANDARD = "c++11";
+                            CLANG_CXX_LIBRARY = "libc++";
+                            CLANG_ENABLE_OBJC_ARC = YES;
+                            SDKROOT = "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk";
+                            SYMROOT = /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/build;
+                     };
+                     name = Debug;
+              };
+              B9DB6EC433B34D9BBFA46390 /* Release */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            ARCHS = "armv6 armv7";
+                            CLANG_CXX_LANGUAGE_STANDARD = "c++11";
+                            CLANG_CXX_LIBRARY = "libc++";
+                            CLANG_ENABLE_OBJC_ARC = YES;
+                            SDKROOT = "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk";
+                            SYMROOT = /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/build;
+                     };
+                     name = Release;
+              };
+              3F85C1581BBB43E5946FADFE /* MinSizeRel */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            ARCHS = "armv6 armv7";
+                            CLANG_CXX_LANGUAGE_STANDARD = "c++11";
+                            CLANG_CXX_LIBRARY = "libc++";
+                            CLANG_ENABLE_OBJC_ARC = YES;
+                            SDKROOT = "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk";
+                            SYMROOT = /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/build;
+                     };
+                     name = MinSizeRel;
+              };
+              344C3FE642B14505AAB6697D /* RelWithDebInfo */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            ARCHS = "armv6 armv7";
+                            CLANG_CXX_LANGUAGE_STANDARD = "c++11";
+                            CLANG_CXX_LIBRARY = "libc++";
+                            CLANG_ENABLE_OBJC_ARC = YES;
+                            SDKROOT = "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk";
+                            SYMROOT = /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/build;
+                     };
+                     name = RelWithDebInfo;
+              };
+              45701B0CF7164EF3B191D672 /* Debug */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            COMBINE_HIDPI_IMAGES = YES;
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = " ";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = ALL_BUILD;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter;
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
+                     };
+                     name = Debug;
+              };
+              FEF8765351CA481EA76DDA37 /* Release */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            COMBINE_HIDPI_IMAGES = YES;
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = " ";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = ALL_BUILD;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter;
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
+                     };
+                     name = Release;
+              };
+              409954F087574BBFA5B12BB3 /* MinSizeRel */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            COMBINE_HIDPI_IMAGES = YES;
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = " ";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = ALL_BUILD;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter;
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
+                     };
+                     name = MinSizeRel;
+              };
+              07AB1BCCEB6C47FA8B26FEB2 /* RelWithDebInfo */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            COMBINE_HIDPI_IMAGES = YES;
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = " ";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = ALL_BUILD;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter;
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
+                     };
+                     name = RelWithDebInfo;
+              };
+              C3383C78F5974BC7809874D2 /* Debug */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            ARCHS = (armv6, armv7, );
+                            CODE_SIGN_IDENTITY = "iPhone Developer: David Hirvonen";
+                            COMBINE_HIDPI_IMAGES = YES;
+                            EXECUTABLE_PREFIX = "";
+                            EXECUTABLE_SUFFIX = "";
+                            FRAMEWORK_SEARCH_PATHS = ("/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks", );
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INFOPLIST_FILE = "/Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/CMakeFiles/SimpleVideoFilter.dir/Info.plist";
+                            INSTALL_PATH = "";
+                            LIBRARY_SEARCH_PATHS = "";
+                            ONLY_ACTIVE_ARCH = NO;
+                            OTHER_CFLAGS = "-Wno-implicit-function-declaration  ";
+                            OTHER_CPLUSPLUSFLAGS = " -headerpad_max_install_names -fvisibility=hidden -fvisibility-inlines-hidden  ";
+                            OTHER_LDFLAGS = " -L/usr/local/lib -Wl,-headerpad_max_install_names  -lsamplelib /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/QuartzCore.framework/QuartzCore /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/ImageIO.framework/ImageIO /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/CoreVideo.framework/CoreVideo /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/CoreMedia.framework/CoreMedia /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/CoreLocation.framework/CoreLocation /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/AVFoundation.framework/AVFoundation /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/GLKit.framework/GLKit /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/Accelerate.framework/Accelerate /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/opencv2.framework/opencv2 /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/GPUImage.framework/GPUImage";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = SimpleVideoFilter;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter;
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
+                     };
+                     name = Debug;
+              };
+              70FDC71EB2E8452CA6DC66CE /* Release */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            ARCHS = (armv6, armv7, );
+                            CODE_SIGN_IDENTITY = "iPhone Developer: David Hirvonen";
+                            COMBINE_HIDPI_IMAGES = YES;
+                            EXECUTABLE_PREFIX = "";
+                            EXECUTABLE_SUFFIX = "";
+                            FRAMEWORK_SEARCH_PATHS = ("/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks", );
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INFOPLIST_FILE = "/Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/CMakeFiles/SimpleVideoFilter.dir/Info.plist";
+                            INSTALL_PATH = "";
+                            LIBRARY_SEARCH_PATHS = "";
+                            ONLY_ACTIVE_ARCH = NO;
+                            OTHER_CFLAGS = "-Wno-implicit-function-declaration  ";
+                            OTHER_CPLUSPLUSFLAGS = " -headerpad_max_install_names -fvisibility=hidden -fvisibility-inlines-hidden  ";
+                            OTHER_LDFLAGS = " -L/usr/local/lib -Wl,-headerpad_max_install_names  -lsamplelib /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/QuartzCore.framework/QuartzCore /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/ImageIO.framework/ImageIO /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/CoreVideo.framework/CoreVideo /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/CoreMedia.framework/CoreMedia /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/CoreLocation.framework/CoreLocation /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/AVFoundation.framework/AVFoundation /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/GLKit.framework/GLKit /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/Accelerate.framework/Accelerate /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/opencv2.framework/opencv2 /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/GPUImage.framework/GPUImage";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = SimpleVideoFilter;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter;
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
+                     };
+                     name = Release;
+              };
+              8DACC21C4F7444D5BA3E19AB /* MinSizeRel */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            ARCHS = (armv6, armv7, );
+                            CODE_SIGN_IDENTITY = "iPhone Developer: David Hirvonen";
+                            COMBINE_HIDPI_IMAGES = YES;
+                            EXECUTABLE_PREFIX = "";
+                            EXECUTABLE_SUFFIX = "";
+                            FRAMEWORK_SEARCH_PATHS = ("/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks", );
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INFOPLIST_FILE = "/Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/CMakeFiles/SimpleVideoFilter.dir/Info.plist";
+                            INSTALL_PATH = "";
+                            LIBRARY_SEARCH_PATHS = "";
+                            ONLY_ACTIVE_ARCH = NO;
+                            OTHER_CFLAGS = "-Wno-implicit-function-declaration  ";
+                            OTHER_CPLUSPLUSFLAGS = " -headerpad_max_install_names -fvisibility=hidden -fvisibility-inlines-hidden  ";
+                            OTHER_LDFLAGS = " -L/usr/local/lib -Wl,-headerpad_max_install_names  -lsamplelib /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/QuartzCore.framework/QuartzCore /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/ImageIO.framework/ImageIO /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/CoreVideo.framework/CoreVideo /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/CoreMedia.framework/CoreMedia /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/CoreLocation.framework/CoreLocation /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/AVFoundation.framework/AVFoundation /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/GLKit.framework/GLKit /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/Accelerate.framework/Accelerate /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/opencv2.framework/opencv2 /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/GPUImage.framework/GPUImage";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = SimpleVideoFilter;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter;
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
+                     };
+                     name = MinSizeRel;
+              };
+              89A29BA4FC25456D9CA3377C /* RelWithDebInfo */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            ARCHS = (armv6, armv7, );
+                            CODE_SIGN_IDENTITY = "iPhone Developer: David Hirvonen";
+                            COMBINE_HIDPI_IMAGES = YES;
+                            EXECUTABLE_PREFIX = "";
+                            EXECUTABLE_SUFFIX = "";
+                            FRAMEWORK_SEARCH_PATHS = ("/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks", );
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INFOPLIST_FILE = "/Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter/CMakeFiles/SimpleVideoFilter.dir/Info.plist";
+                            INSTALL_PATH = "";
+                            LIBRARY_SEARCH_PATHS = "";
+                            ONLY_ACTIVE_ARCH = NO;
+                            OTHER_CFLAGS = "-Wno-implicit-function-declaration  ";
+                            OTHER_CPLUSPLUSFLAGS = " -headerpad_max_install_names -fvisibility=hidden -fvisibility-inlines-hidden  ";
+                            OTHER_LDFLAGS = " -L/usr/local/lib -Wl,-headerpad_max_install_names  -lsamplelib /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/QuartzCore.framework/QuartzCore /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/ImageIO.framework/ImageIO /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/CoreVideo.framework/CoreVideo /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/CoreMedia.framework/CoreMedia /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/CoreLocation.framework/CoreLocation /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/AVFoundation.framework/AVFoundation /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/GLKit.framework/GLKit /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/Accelerate.framework/Accelerate /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/opencv2.framework/opencv2 /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks/GPUImage.framework/GPUImage";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = SimpleVideoFilter;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter;
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
+                     };
+                     name = RelWithDebInfo;
+              };
+              12589718D4EC4F6BA90880C5 /* Debug */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            COMBINE_HIDPI_IMAGES = YES;
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = " ";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = ZERO_CHECK;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter;
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
+                     };
+                     name = Debug;
+              };
+              943079E275B9493CA1567BE9 /* Release */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            COMBINE_HIDPI_IMAGES = YES;
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = " ";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = ZERO_CHECK;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter;
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
+                     };
+                     name = Release;
+              };
+              2D1ABFD27E1D41A2A767B08E /* MinSizeRel */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            COMBINE_HIDPI_IMAGES = YES;
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = " ";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = ZERO_CHECK;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter;
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
+                     };
+                     name = MinSizeRel;
+              };
+              1426D42131C94475B3D8DB5C /* RelWithDebInfo */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            COMBINE_HIDPI_IMAGES = YES;
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "  ";
+                            OTHER_LDFLAGS = " ";
+                            OTHER_REZFLAGS = "";
+                            PRODUCT_NAME = ZERO_CHECK;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = /Users/dhirvonen/devel/GPUOpenCV/src/app/SimpleVideoFilter/SimpleVideoFilter;
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
+                     };
+                     name = RelWithDebInfo;
+              };
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+              36CDC0AB04D64A3A975531D4 /* Build configuration list for PBXProject  "SimpleVideoFilter" */ = {
+                     isa = XCConfigurationList;
+                     buildConfigurations = (
+                            4E41F1CBB32346B892E52A67 /* Debug */,
+                            B9DB6EC433B34D9BBFA46390 /* Release */,
+                            3F85C1581BBB43E5946FADFE /* MinSizeRel */,
+                            344C3FE642B14505AAB6697D /* RelWithDebInfo */,
+                     );
+                     defaultConfigurationIsVisible = 0;
+                     defaultConfigurationName = Debug;
+              };
+              D6733ED1C0014A2C9B5EE493 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
+                     isa = XCConfigurationList;
+                     buildConfigurations = (
+                            45701B0CF7164EF3B191D672 /* Debug */,
+                            FEF8765351CA481EA76DDA37 /* Release */,
+                            409954F087574BBFA5B12BB3 /* MinSizeRel */,
+                            07AB1BCCEB6C47FA8B26FEB2 /* RelWithDebInfo */,
+                     );
+                     defaultConfigurationIsVisible = 0;
+                     defaultConfigurationName = Debug;
+              };
+              8A2961122A5D4C6B9BC2559A /* Build configuration list for PBXNativeTarget "SimpleVideoFilter" */ = {
+                     isa = XCConfigurationList;
+                     buildConfigurations = (
+                            C3383C78F5974BC7809874D2 /* Debug */,
+                            70FDC71EB2E8452CA6DC66CE /* Release */,
+                            8DACC21C4F7444D5BA3E19AB /* MinSizeRel */,
+                            89A29BA4FC25456D9CA3377C /* RelWithDebInfo */,
+                     );
+                     defaultConfigurationIsVisible = 0;
+                     defaultConfigurationName = Debug;
+              };
+              08A22F13A0C840DA880DB670 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
+                     isa = XCConfigurationList;
+                     buildConfigurations = (
+                            12589718D4EC4F6BA90880C5 /* Debug */,
+                            943079E275B9493CA1567BE9 /* Release */,
+                            2D1ABFD27E1D41A2A767B08E /* MinSizeRel */,
+                            1426D42131C94475B3D8DB5C /* RelWithDebInfo */,
+                     );
+                     defaultConfigurationIsVisible = 0;
+                     defaultConfigurationName = Debug;
+              };
+/* End XCConfigurationList section */
+       };
+       rootObject = C418B61F54FF48849A568D21;
+}
