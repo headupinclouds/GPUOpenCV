@@ -1,5 +1,13 @@
 cmake_minimum_required(VERSION 3.0)
+
 project(GPUOpenCV)
+
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
+
+#
+# Desired behavior: 
+#
+#
 
 include(ExternalProject)
 
@@ -8,7 +16,7 @@ set(INSTALL_DIR "${CMAKE_CURRENT_BINARY_DIR}")
 set(CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR})
 
 ### Hunter snapshot that will be used ###
-#include("cmake/HunterGate.cmake")
+include("cmake/HunterGate.cmake")
 #HunterGate(
 #    URL "https://github.com/ruslo/hunter/archive/v0.5.10.tar.gz"
 #    SHA1 "d534c6f3ab9c53c325ca4d3607f65bbf981913db"
@@ -40,20 +48,7 @@ else()
 endif()
 
 if(APPLE)
-  macro(ADD_FRAMEWORK fwname appname)
-    find_library(FRAMEWORK_${fwname}
-      NAMES ${fwname}
-      PATHS ${CMAKE_OSX_SYSROOT}/System/Library 
-      PATH_SUFFIXES Frameworks
-      NO_DEFAULT_PATH)
-    if( ${FRAMEWORK_${fwname}} STREQUAL FRAMEWORK_${fwname}-NOTFOUND)
-      MESSAGE(ERROR ": Framework ${fwname} not found")
-    else()
-      TARGET_LINK_LIBRARIES(${appname} "${FRAMEWORK_${fwname}}/${fwname}")
-      MESSAGE(STATUS "Framework ${fwname} found at ${FRAMEWORK_${fwname}}")
-    endif()
-  endmacro(ADD_FRAMEWORK)
-
+  include(MacroAddFramework)
 endif()
 
 add_subdirectory(src)
