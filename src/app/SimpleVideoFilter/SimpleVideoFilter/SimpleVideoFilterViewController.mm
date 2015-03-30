@@ -55,8 +55,8 @@ static CGSize GPUImageConvert(const cv::Size &size)
     
     {
         // http://stackoverflow.com/questions/18563259/avcapturesession-image-dimensions-with-gpuimage
-        AVCaptureVideoDataOutput *output = [[[videoCamera captureSession] outputs] lastObject];
-        NSDictionary* outputSettings = [output videoSettings];
+        AVCaptureVideoDataOutput *dataOutput = [[[videoCamera captureSession] outputs] lastObject];
+        NSDictionary* outputSettings = [dataOutput videoSettings];
         frameSize.width = [[outputSettings objectForKey:@"Width"]  longValue];
         frameSize.height = [[outputSettings objectForKey:@"Height"] longValue];
         if (UIInterfaceOrientationIsPortrait([videoCamera outputImageOrientation]))
