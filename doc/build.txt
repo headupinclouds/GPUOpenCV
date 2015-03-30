@@ -6,6 +6,38 @@ can rely on cmake's external package or the hunter mechanism for building.
 Later I'll be interested in including the gtest package with examples on both iOS (via polly)
 and OS X + *nix.  I'm also considering glog for logging.
 
+To get this build running end-to-end I've included both of these are pre-built frameworks in:
+
+GPUOpenCV/prebuilt/ios/{opencv2,GPUImage}.framework
+
+There is a simple bash front-end script for the CMake ios Xcode generator 
+
+GPUOpenCV/bin/build-ios.sh
+
+That uses the ios cmake toolchain here:
+
+GPUOpenCV/cmake/iOS.cmake
+
+This macro (sourced from forums):
+
+GPUOpenCV/cmake/Modules/MacroAddFramework.cmake
+
+is used to pull in frameworks, but I wasn't able to find the correct syntax for pulling in the local/custom 
+frameworks used by this project.  After some hacking I was able to get this working by symlinking to the 
+projects from the system folders (via root as shown in the build-ios.sh script).  It would be great to
+find a way to pick up these frameworks automatically after building them using hunter (see below).
+
+#
+# HACK!!!! Seems to be needed to pick up custom (non system) frameworks
+#
+CMAKE_OSX_PLATFORM=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform
+CMAKE_OSX_SYSROOT=${CMAKE_OSX_PLATFORM}/Developer/SDKs/iPhoneOS8.2.sdk/System/Library/Frameworks
+
+echo "About to make links to {opencv2,GPUImage}.framework from ${CMAKE_OSX_SYSROOT}"
+
+[ ! -s ${CMAKE_OSX_SYSROOT}/opencv2.framework ] && sudo ln -s ${GPUOPENCV_DIR}/prebuilt/ios/GPUImage.framework ${CMAKE_OSX_SYSROOT}
+[ ! -s ${CMAKE_OSX_SYSROOT}/GPUImage.framework ] &&  sudo ln -s ${GPUOPENCV_DIR}/prebuilt/ios/opencv2.framework ${CMAKE_OSX_SYSROOT}
+
 ======================================================================================================
 =================================== OpenCV ===========================================================
 ======================================================================================================
@@ -81,13 +113,8 @@ hunter_add_version(
 =======================================
 
 ======== opencv *nix static lib =======
-
-Same as above but with TBB enabled
-
--DBUILD_TBB:BOOL="1" -DWITH_TBB:BOOL="1" 
-
+Same as above but with TBB enabled: -DBUILD_TBB:BOOL="1" -DWITH_TBB:BOOL="1" 
 =======================================
-
 
 ======================================================================================================
 ========================== GPUImage ==================================================================
