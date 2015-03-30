@@ -18,6 +18,10 @@ set (GPUOPENCV_SIMPLE_VIDEO_FILTER_SRCS
     SimpleVideoFilterAppDelegate.mm
     SimpleVideoFilterViewController.h
     SimpleVideoFilterViewController.mm
+    NativeVideoFrameHandler.h
+    NativeVideoFrameHandler.mm
+    UIImage+OpenCV.h
+    UIImage+OpenCV.mm
 )
 
 set (RESOURCES SimpleVideoFilterViewController.xib)

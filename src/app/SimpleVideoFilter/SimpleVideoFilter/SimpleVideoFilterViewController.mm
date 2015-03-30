@@ -1,7 +1,10 @@
 #import "SimpleVideoFilterViewController.h"
+#import "NativeVideoFrameHandler.h"
+#import "UIImage+OpenCV.h"
 
 #import "GPUImage/GPUImageRawDataInput.h"
 #import "GPUImage/GPUImageRawDataOutput.h"
+#import "GPUImage/GPUImageShiTomasiFeatureDetectionFilter.h"
 
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
@@ -13,7 +16,9 @@
 {
     GPUImageRawDataInput *rawIn;
     GPUImageRawDataOutput *rawOut;
+    NativeVideoFrameHandler *nativeFrameHandler;
     
+    bool useGPUInput;
     cv::Mat4b input;
     cv::Mat4b output;
     cv::Size frameSize;
@@ -42,9 +47,29 @@ static CGSize GPUImageConvert(const cv::Size &size)
 
 #pragma mark - View lifecycle
 
+
+typedef cv::Mat (^ FrameHandlerType)();
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+   
+    nativeFrameHandler = [[NativeVideoFrameHandler alloc] init];
+    
+    FrameHandlerType frameHandlerDelegate = ^()
+    {
+        cv::Mat image;
+        if(nativeFrameHandler && nativeFrameHandler.frame)
+        {
+            UIImage *frame = [NativeVideoFrameHandler getUIImageFromYuvBuffer:nativeFrameHandler.frame];
+            if(frame)
+            {
+                image = frame.CVGrayscaleMat;
+            }
+        }
+        return image;
+    };
+    
     
     filterView = (GPUImageView *)self.view;
     
@@ -52,6 +77,7 @@ static CGSize GPUImageConvert(const cv::Size &size)
     videoCamera.outputImageOrientation = UIInterfaceOrientationPortrait;
     videoCamera.horizontallyMirrorFrontFacingCamera = NO;
     videoCamera.horizontallyMirrorRearFacingCamera = NO;
+    videoCamera.delegate = nativeFrameHandler;
     
     {
         // http://stackoverflow.com/questions/18563259/avcapturesession-image-dimensions-with-gpuimage
@@ -71,6 +97,8 @@ static CGSize GPUImageConvert(const cv::Size &size)
     glDisable(GL_DITHER);
     
     filter = [[GPUImageSepiaFilter alloc] init];
+    //filter = [[GPUImageShiTomasiFeatureDetectionFilter alloc] init];
+    
     [videoCamera addTarget:filter];
     
     // (((((( GPU => CPU ))))))
@@ -89,7 +117,7 @@ static CGSize GPUImageConvert(const cv::Size &size)
     __weak GPUImageRawDataInput *weakIn = rawIn;
     
     // write low res grayscale image to alpha channel of full res color image
-    [[UIScreen mainScreen] setBrightness:1.0];
+    //[[UIScreen mainScreen] setBrightness:1.0];
     
     [rawOut setNewFrameAvailableBlock:^
      {
@@ -102,7 +130,6 @@ static CGSize GPUImageConvert(const cv::Size &size)
          GLubyte *ptr = [strongOut rawBytesForImage];
          if(ptr != NULL)
          {
-             
              strongSelf->input = cv::Mat4b( strongSelf->frameSize.height, strongSelf->frameSize.width, reinterpret_cast<cv::Vec4b*>(ptr), [strongOut bytesPerRowInOutput] );
              strongSelf->input.copyTo(strongSelf->output); // just for testing
              
