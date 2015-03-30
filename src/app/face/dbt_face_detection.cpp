@@ -7,16 +7,20 @@
 #include <opencv2/features2d/features2d.hpp>
 #include <opencv2/objdetect/objdetect.hpp>
 
+#include "detection_based_tracker.hpp" // local gpucv:: override to fix unique_lock bug
+
 #include <stdio.h>
 #include <string>
 #include <vector>
 
+#include <iostream>
+
 using namespace std;
-using namespace cv;
+//using namespace cv;
 
-const string WindowName = "Face Detection example";
+//const string WindowName = "Face Detection example";
 
-class CascadeDetectorAdapter: public DetectionBasedTracker::IDetector
+class CascadeDetectorAdapter: public gpucv::DetectionBasedTracker::IDetector
 {
     public:
         CascadeDetectorAdapter(cv::Ptr<cv::CascadeClassifier> detector):
@@ -39,11 +43,16 @@ class CascadeDetectorAdapter: public DetectionBasedTracker::IDetector
         cv::Ptr<cv::CascadeClassifier> Detector;
  };
 
-int main(int , char** )
+int main(int argc, char** argv )
 {
-    namedWindow(WindowName);
+    std::string WindowName = argv[1];
+    std::string cascadeFrontalfilename = argv[2]; //  "../../data/lbpcascades/lbpcascade_frontalface.xml";    
 
-    VideoCapture VideoStream(0);
+    std::cout << "WindowName: " << WindowName << "\n" << "Cascade: " << cascadeFrontalfilename << std::endl;
+
+    //namedWindow(WindowName);
+
+    cv::VideoCapture VideoStream(0);
 
     if (!VideoStream.isOpened())
     {
@@ -51,15 +60,22 @@ int main(int , char** )
         return 1;
     }
 
-    std::string cascadeFrontalfilename = "../../data/lbpcascades/lbpcascade_frontalface.xml";
-    cv::Ptr<cv::CascadeClassifier> cascade = makePtr<cv::CascadeClassifier>(cascadeFrontalfilename);
-    cv::Ptr<DetectionBasedTracker::IDetector> MainDetector = makePtr<CascadeDetectorAdapter>(cascade);
+    cv::Ptr<gpucv::DetectionBasedTracker::IDetector> MainDetector, TrackingDetector;
+    {
+      cv::Ptr<cv::CascadeClassifier> cascade = cv::makePtr<cv::CascadeClassifier>(cascadeFrontalfilename);
+      MainDetector = cv::makePtr<CascadeDetectorAdapter>(cascade);
+    }
 
-    cascade = makePtr<cv::CascadeClassifier>(cascadeFrontalfilename);
-    cv::Ptr<DetectionBasedTracker::IDetector> TrackingDetector = makePtr<CascadeDetectorAdapter>(cascade);
+    {
+      cv::Ptr<cv::CascadeClassifier> cascade = cv::makePtr<cv::CascadeClassifier>(cascadeFrontalfilename);
+      TrackingDetector = cv::makePtr<CascadeDetectorAdapter>(cascade);
+    }
 
-    DetectionBasedTracker::Parameters params;
-    DetectionBasedTracker Detector(MainDetector, TrackingDetector, params);
+    gpucv::DetectionBasedTracker::Parameters params;
+    params.maxTrackLifetime = 20;
+    params.minDetectionPeriod = 7;
+
+    gpucv::DetectionBasedTracker Detector(MainDetector, TrackingDetector, params);
 
     if (!Detector.run())
     {
@@ -67,25 +83,26 @@ int main(int , char** )
         return 2;
     }
 
-    Mat ReferenceFrame;
-    Mat GrayFrame;
-    vector<Rect> Faces;
+    cv::Mat ReferenceFrame;
+    cv::Mat GrayFrame;
+    std::vector<cv::Rect> Faces;
 
     while(true)
     {
         VideoStream >> ReferenceFrame;
-        cvtColor(ReferenceFrame, GrayFrame, COLOR_RGB2GRAY);
-        Detector.process(GrayFrame);
+	cv::cvtColor(ReferenceFrame, GrayFrame, cv::COLOR_RGB2GRAY);
+       
+	Detector.process(GrayFrame);
         Detector.getObjects(Faces);
 
         for (size_t i = 0; i < Faces.size(); i++)
         {
-            rectangle(ReferenceFrame, Faces[i], Scalar(0,255,0));
+	  rectangle(ReferenceFrame, Faces[i], cv::Scalar(0,255,0));
         }
 
-        imshow(WindowName, ReferenceFrame);
+	cv::imshow(WindowName, ReferenceFrame);
 
-        if (waitKey(30) >= 0) break;
+        if (cv::waitKey(30) >= 0) break;
     }
 
     Detector.stop();
