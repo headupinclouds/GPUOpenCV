@@ -95,6 +95,8 @@ endif()
 find_package( OpenCV REQUIRED )
 include_directories(${OpenCV_INCLUDE_DIRS})
 
+include_directories(src/lib)
+
 add_subdirectory(src)
 
 

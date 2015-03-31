@@ -1,3 +1,3 @@
-project( simple )
-set ( SIMPLE_SRCS simple.hpp simple.cpp )
-add_library( simple  ${SIMPLE_SRCS} )
+project(simple)
+set(SIMPLE_SRCS simple.hpp simple.cpp)
+add_library(simple ${SIMPLE_SRCS})
