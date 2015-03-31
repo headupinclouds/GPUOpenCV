@@ -50,7 +50,7 @@ set(APP_IDENTIFIER com.elucideye.SimpleVideoFilter)
 # http://stackoverflow.com/questions/18700901/ios-cmake-installtargets-function-uses-wrong-folders
 # http://stackoverflow.com/questions/19325989/how-to-set-xcode-only-active-arch-flag-with-cmake
 
-CONFIGURE_FILE("${CMAKE_CURRENT_LIST_DIR}/SimpleVideoFilter-Info.plist" "${CMAKE_CURRENT_BINARY_DIR}/${PROJ_NAME}.plist")
+CONFIGURE_FILE("${CMAKE_CURRENT_LIST_DIR}/SimpleVideoFilter-Info.plist.in" "${CMAKE_CURRENT_BINARY_DIR}/${PROJ_NAME}.plist")
 
 set_target_properties(SimpleVideoFilter PROPERTIES 
     MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_BINARY_DIR}/${PROJ_NAME}.plist"
