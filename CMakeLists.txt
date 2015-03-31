@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.0)
 
 project(GPUOpenCV)
 
+string(COMPARE EQUAL "${CMAKE_OSX_SYSROOT}" "iphoneos" is_ios)
+
 # Set the cmake/Modules path and pull in some convenience macros
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 include(ExternalProject) 
@@ -55,7 +57,7 @@ endif()
 # worth checking to simplify things.
 
 if(APPLE)
-  if(IOS)
+  if(is_ios)
 
     # Eventually use the OpenCV-ios hunter package, but for now
     # we just use prebuilt/ios/opencv2.framework
