@@ -2,6 +2,20 @@
 # GPUOpenCV
 #
 
+A simple repository for experimenting with ruslo's hunter and polly CMake dependency/package managers.  
+This is also a testbed for working through a number of other CMake basics I've done somehwat haphazardly in the past.
+I intend to use this as a starting point for my future projects.  Here are the main goals:
+
+* provide cmake options to build the internal project code as a static lib, shared lib w/ versionining, or as a framework (iOS/OS X)
+* provide some sample OpenCV console apps for a quick start approach to cross platform OpenCV development
+* create an iOS application and XCode project from source using OpenCV and GPUImage via CMake's XCode generator and an ios toolchain
+* provide cmake options for linking to frameworks (using find_library) in non-standard locations
+ (still working on this and relying on symlinks to frameworks in the "standard" CMAKE_OSX_SYSROOT location)
+
+Currently the iOS platform GPUImage and OpenCV dependencies rely on prebuilt frameworks.  
+These don't use vanilla CMake builds and will require a little more CMake magic to get 
+working properly.  some more work to get hunter.cmake pages configured.
+
 You will need to checkout the [headupinclouds/hunter](https://github.com/headupinclouds/hunter) fork of
 [ruslo/hunter](https://github.com/ruslo/hunter) for the new package definitions (i.e., OpenCV, cvmatio, etc) 
 until those can be pushed back.
@@ -69,6 +83,8 @@ build.py --toolchain libcxx --verbose --fwd "BUILD_FRAMEWORK=ON" --install --cle
 -- Installing: _install/libcxx/Library/Frameworks/GPUOpenCV.framework/Versions/1.0.0/Resources/Info.plist
 -- Installing: _install/libcxx/Library/Frameworks/GPUOpenCV.framework/Versions/Current
 
+And then a simple test via:
 
-
+install/libcxx/bin/test_gpuopencv 
+test_gpuopencv: 3
 
