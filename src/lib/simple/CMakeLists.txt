@@ -1,7 +1,7 @@
 project(simple)
-set(SRCS simple.cpp)
+set(SRCS simple.cpp simple_private.cpp)
 set(HDRS_PUBLIC simple.hpp)
-set(HDRS ${HDRS_PUBLIC})
+set(HDRS ${HDRS_PUBLIC} simple_private.hpp)
 add_library(simple OBJECT ${HDRS} ${SRCS})
 
 ## make path valid for parent
