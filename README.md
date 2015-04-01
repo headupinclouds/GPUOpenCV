@@ -2,13 +2,15 @@
 # GPUOpenCV
 #
 
-You will need to checkout the headupinclouds/hunter fork ruslo/hunter 
-for the new package definitions (i.e., OpenCV, cvmatio, etc) until those can be pushed back
+You will need to checkout the [headupinclouds/hunter](https://github.com/headupinclouds/hunter) fork of
+[ruslo/hunter](https://github.com/ruslo/hunter) for the new package definitions (i.e., OpenCV, cvmatio, etc) 
+until those can be pushed back.
 
 see: git@github.com:headupinclouds/hunter.git
 
-You will need to checkout the headupinclouds/polly fork of ruslo/polly
-for the new toolchain definitions (i.e., ios-8-2) until those can be pushed back
+You will need to checkout the [headupinclouds/polly](https://github.com/headupinclouds/polly) fork of
+[ruslo/polly](https://github.com/ruslo/polly) for the new package toolchain (i.e., ios-8-2)
+until those can be pushed back.
 
 see: git@github.com:headupinclouds/polly.git
 
