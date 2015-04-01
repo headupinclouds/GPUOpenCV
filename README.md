@@ -2,7 +2,27 @@
 # GPUOpenCV
 #
 
+You will need to checkout the headupinclouds/hunter fork ruslo/hunter 
+for the new package definitions (i.e., OpenCV, cvmatio, etc) until those can be pushed back
+
+see: git@github.com:headupinclouds/hunter.git
+
+You will need to checkout the headupinclouds/polly fork of ruslo/polly
+for the new toolchain definitions (i.e., ios-8-2) until those can be pushed back
+
+see: git@github.com:headupinclouds/polly.git
+
 Sample repository for experimenting with hunter to combine multiple packages (in this case OpenCV and GPUImage)
+
+Then update your environment variables appropriately:
+```
+export HUNTER_ROOT=${HOME}/your_devel_path/hunter
+export POLLY_ROOT=${HOME}/your_devel_path/polly
+export SUGAR_ROOT=${HOME}/your_devel_path/sugar
+export PATH=${POLLY_ROOT}/bin:${PATH}
+```
+
+Alternatively you can just copy the the very few changes over if you already have ruslo/{hunter,polly} installed.
 
 ### Command line sample for building shared libs ###
 build.py --toolchain libcxx --verbose --install --clear  | grep Installing | sed "s|${PWD}||g"
