@@ -1,3 +1,11 @@
 project(simple)
-set(SIMPLE_SRCS simple.hpp simple.cpp)
-add_library(simple ${SIMPLE_SRCS})
+set(SRCS simple.cpp)
+set(HDRS_PUBLIC simple.hpp)
+set(HDRS ${HDRS_PUBLIC})
+add_library(simple OBJECT ${HDRS} ${SRCS})
+
+## make path valid for parent
+for_each_prepend(SIMPLE_PUBLIC_HDRS ${CMAKE_CURRENT_SOURCE_DIR} ${HDRS_PUBLIC}) 
+set(SIMPLE_PUBLIC_HDRS ${SIMPLE_PUBLIC_HDRS} PARENT_SCOPE) # export to parent scope
+
+
