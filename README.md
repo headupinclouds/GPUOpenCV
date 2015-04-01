@@ -94,5 +94,6 @@ build.py --toolchain libcxx --verbose --fwd "BUILD_FRAMEWORK=ON" --install --cle
 And then a simple test via:
 
 install/libcxx/bin/test_gpuopencv 
+
 test_gpuopencv: 3
 
