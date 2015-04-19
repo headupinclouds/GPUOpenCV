@@ -1,8 +1,15 @@
 # Copyright (c) 2013-2014, Ruslan Baratov
 # All rights reserved.
 
-# iOS project example.
-# Create project as Xcode: iOS -> Application -> Single View Application
+#
+# Lineage: 
+#
+#  sugar/examples/06-ios/single_view_application
+#
+# 04/19/2015: dhirvonen@elucideye.com
+#   Modification of sugar ios sample app to provide a simple test of opencv functionality 
+#   that doesn't use the camera.
+#
 
 cmake_minimum_required(VERSION 2.8.11)
 project(test_opencv)
@@ -22,12 +29,21 @@ include("$ENV{SUGAR_ROOT}/cmake/Sugar")
 
 include(sugar_include)
 
+message(" CMAKE_SOURCE_DIR => ${CMAKE_SOURCE_DIR} <= ")
+
 include_directories("${SUGAR_ROOT}/examples/third_party")
+include_directories("${CMAKE_SOURCE_DIR}/src/app/ios")
 
 sugar_include("./sources")
 sugar_include("${SUGAR_ROOT}/examples/resources/ios/icons")
 sugar_include("${SUGAR_ROOT}/examples/resources/ios/images")
 sugar_include("${SUGAR_ROOT}/examples/resources/ios/storyboards")
+
+## Add a few more files:
+set (SOURCES ${SOURCES}
+    ${CMAKE_SOURCE_DIR}/src/app/ios/UIImage+OpenCV.h
+    ${CMAKE_SOURCE_DIR}/src/app/ios/UIImage+OpenCV.mm
+)
 
 set(RESOURCES ${IOS_ICONS} ${DEFAULT_IOS_IMAGES} ${IOS_STORYBOARDS_RESOURCES})
 
@@ -35,10 +51,10 @@ if(NOT XCODE_VERSION)
   sugar_fatal_error("Xcode only")
 endif()
 
-add_executable(example ${SOURCES} ${RESOURCES})
+add_executable(test_opencv ${SOURCES} ${RESOURCES})
 
 set_target_properties(
-    example
+    test_opencv
     PROPERTIES
     MACOSX_BUNDLE YES
     MACOSX_BUNDLE_INFO_PLIST
@@ -58,25 +74,25 @@ set_target_properties(
 )
 
 set_target_properties(
-    example
+    test_opencv
     PROPERTIES
     XCODE_ATTRIBUTE_PRODUCT_NAME
     "Example"
     XCODE_ATTRIBUTE_BUNDLE_IDENTIFIER
-    "com.example.sugar.ios.SingleViewApplication"
+    "com.elucideye.TestOpencv.debug"
 )
 
 set_target_properties(
-    example
+    test_opencv
     PROPERTIES
     XCODE_ATTRIBUTE_PRODUCT_NAME[variant=Debug]
     "Example-Dbg"
     XCODE_ATTRIBUTE_BUNDLE_IDENTIFIER[variant=Debug]
-    "com.example.sugar.ios.SingleViewApplication.debug"
+    "com.elucideye.TestOpencv.debug"
 )
 
 target_link_libraries(
-    example
+    test_opencv
     "-framework CoreGraphics"
     "-framework Foundation"
     "-framework UIKit"

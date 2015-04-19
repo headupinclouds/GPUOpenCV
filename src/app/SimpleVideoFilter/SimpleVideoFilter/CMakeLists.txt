@@ -12,6 +12,8 @@ project (SimpleVideoFilter)
 # seems to be kind of supported, so I'm using this as a sample project to outline all of the
 # steps required to achieve this.
 
+include_directories("${CMAKE_SOURCE_DIR}/src/app/ios")
+
 set (GPUOPENCV_SIMPLE_VIDEO_FILTER_SRCS
     main.m
     SimpleVideoFilterAppDelegate.h
@@ -20,8 +22,8 @@ set (GPUOPENCV_SIMPLE_VIDEO_FILTER_SRCS
     SimpleVideoFilterViewController.mm
     NativeVideoFrameHandler.h
     NativeVideoFrameHandler.mm
-    UIImage+OpenCV.h
-    UIImage+OpenCV.mm
+    ${CMAKE_SOURCE_DIR}/src/app/ios/UIImage+OpenCV.h
+    ${CMAKE_SOURCE_DIR}/src/app/ios/UIImage+OpenCV.mm
 )
 
 set (RESOURCES SimpleVideoFilterViewController.xib)
@@ -57,7 +59,6 @@ set_target_properties(SimpleVideoFilter PROPERTIES
     ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}"
     XCODE_ATTRIBUTE_ONLY_ACTIVE_ARCH "NO"
 )
-
 
 message("LIBS: ${GPUImage_LIB} ${OpenCV_LIBS}")
 target_link_libraries(SimpleVideoFilter GPUOpenCV ${GPUIMAGE_LIB} ${OpenCV_LIBS})
