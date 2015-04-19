@@ -1,124 +1,97 @@
-project (SimpleVideoFilter)
-
+# Copyright (c) 2013-2014, Ruslan Baratov
+# All rights reserved.
+#
 # Lineage:
 #
 # Source code taken from sample GPUImage ios Xcode project
 #
 # GPUImage/examples/iOS/SimpleVideoFilter/SimpleVideoFilter
 #
-# CMake stuff laboriously scrounged from various internet sources to enable Xcode generator
-# build for iOS without mucking around with XCode manually.  I have a need for automatically
-# generating simple ios applications (single view controller apps) via CMakeLists.txt.  This
-# seems to be kind of supported, so I'm using this as a sample project to outline all of the
-# steps required to achieve this.
+# 04/19/2015: Modeled this CMakeLists.txt on the sugar ios project sample
+#
 
+cmake_minimum_required(VERSION 2.8.11)
+project (SimpleVideoFilter)
+
+include("$ENV{SUGAR_ROOT}/cmake/Sugar")
+include(sugar_include) # <= not used?
+
+include_directories("${SUGAR_ROOT}/examples/third_party")
 include_directories("${CMAKE_SOURCE_DIR}/src/app/ios")
 
-set (GPUOPENCV_SIMPLE_VIDEO_FILTER_SRCS
-    main.m
-    SimpleVideoFilterAppDelegate.h
-    SimpleVideoFilterAppDelegate.mm
-    SimpleVideoFilterViewController.h
-    SimpleVideoFilterViewController.mm
-    NativeVideoFrameHandler.h
-    NativeVideoFrameHandler.mm
-    ${CMAKE_SOURCE_DIR}/src/app/ios/UIImage+OpenCV.h
-    ${CMAKE_SOURCE_DIR}/src/app/ios/UIImage+OpenCV.mm
+sugar_include("./")
+sugar_include("${SUGAR_ROOT}/examples/resources/ios/icons")
+sugar_include("${SUGAR_ROOT}/examples/resources/ios/images")
+
+## Add a few more files:
+set (SOURCES ${SOURCES}
+  ${CMAKE_SOURCE_DIR}/src/app/ios/UIImage+OpenCV.h
+  ${CMAKE_SOURCE_DIR}/src/app/ios/UIImage+OpenCV.mm
+  )
+
+set(RESOURCES ${IOS_ICONS} ${DEFAULT_IOS_IMAGES} SimpleVideoFilterViewController.xib)
+
+if(NOT XCODE_VERSION)
+  sugar_fatal_error("Xcode only")
+endif()
+
+add_executable(SimpleVideoFilter ${SOURCES} ${RESOURCES})
+
+set_target_properties(
+  SimpleVideoFilter
+  PROPERTIES
+  MACOSX_BUNDLE YES
+  MACOSX_BUNDLE_INFO_PLIST
+    "${SUGAR_ROOT}/examples/plist/ios/storyboard.plist.in"
+  XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY "iPhone Developer"
+  XCODE_ATTRIBUTE_TARGETED_DEVICE_FAMILY "1,2" # Universal (iPad + iPhone)
+    # http://stackoverflow.com/a/20982506/2288008
+  XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC YES
+  XCODE_ATTRIBUTE_INSTALL_PATH "${CMAKE_BINARY_DIR}/ProductRelease"
+    # By default this setting is empty =>
+    # archives not showing up in Xcode organizer.
+    # http://stackoverflow.com/a/8102602/2288008
+  XCODE_ATTRIBUTE_COMBINE_HIDPI_IMAGES "NO" # If this setting is "YES"
+    # application can't pass archive validation.
+    # http://stackoverflow.com/a/24040412/2288008
+  RESOURCE "${RESOURCES}"
 )
 
-set (RESOURCES SimpleVideoFilterViewController.xib)
-
-#    en.lproj/MainStoryboard_iPhone.storyboard
-#    SimpleVideoFilterViewController.xib
-#    en.lproj
-#    en.lproj/InfoPlist.strings
-#    SimpleVideoFilter-Info.plist
-#    SimpleVideoFilter-Prefix.pch
-
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -x objective-c++")
-
-add_executable (SimpleVideoFilter MACOSX_BUNDLE ${GPUOPENCV_SIMPLE_VIDEO_FILTER_SRCS} ${RESOURCES} )
-
-# http://stackoverflow.com/questions/7462129/cmake-xib-to-nib-compilation-for-ios-target
-# SET_SOURCE_FILES_PROPERTIES(${RESOURCES} PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
-
-set(PRODUCT_NAME SimpleVideoFilter)
-set(EXECUTABLE_NAME SimpleVideoFilter)
-set(APP_IDENTIFIER com.elucideye.SimpleVideoFilter)
-
-# http://ebitg.wordpress.com/2012/04/24/cmake-iphone-support/
-# http://stackoverflow.com/questions/18700901/ios-cmake-installtargets-function-uses-wrong-folders
-# http://stackoverflow.com/questions/19325989/how-to-set-xcode-only-active-arch-flag-with-cmake
-
-CONFIGURE_FILE("${CMAKE_CURRENT_LIST_DIR}/SimpleVideoFilter-Info.plist.in" "${CMAKE_CURRENT_BINARY_DIR}/${PROJ_NAME}.plist")
-
-set_target_properties(SimpleVideoFilter PROPERTIES 
-    MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_BINARY_DIR}/${PROJ_NAME}.plist"
-    RESOURCE "${RESOURCES}"
-    XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY "iPhone Developer: David Hirvonen"
-    ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}"
-    XCODE_ATTRIBUTE_ONLY_ACTIVE_ARCH "NO"
+set_target_properties(
+  SimpleVideoFilter
+  PROPERTIES
+  XCODE_ATTRIBUTE_PRODUCT_NAME
+  "SimpleVideoFilter"
+  XCODE_ATTRIBUTE_BUNDLE_IDENTIFIER
+  "com.elucideye.TestOpencv.debug"
 )
 
-message("LIBS: ${GPUImage_LIB} ${OpenCV_LIBS}")
-target_link_libraries(SimpleVideoFilter GPUOpenCV ${GPUIMAGE_LIB} ${OpenCV_LIBS})
+set_target_properties(
+  SimpleVideoFilter
+  PROPERTIES
+  XCODE_ATTRIBUTE_PRODUCT_NAME[variant=Debug]
+  "SimpleVideoFilter-Dbg"
+  XCODE_ATTRIBUTE_BUNDLE_IDENTIFIER[variant=Debug]
+  "com.elucideye.TestOpencv.debug"
+  )
 
-#https://github.com/phaser/tests/blob/master/TestGame/dev/CMakeLists.txt
-ADD_FRAMEWORK( QuartzCore SimpleVideoFilter )
-ADD_FRAMEWORK( ImageIO SimpleVideoFilter )
-ADD_FRAMEWORK( CoreGraphics SimpleVideoFilter )
-ADD_FRAMEWORK( CoreVideo SimpleVideoFilter )
-ADD_FRAMEWORK( CoreMedia SimpleVideoFilter )
-ADD_FRAMEWORK( CoreLocation SimpleVideoFilter )
-ADD_FRAMEWORK( AVFoundation SimpleVideoFilter )
-ADD_FRAMEWORK( GLKit SimpleVideoFilter )
-ADD_FRAMEWORK( Accelerate SimpleVideoFilter )
-ADD_FRAMEWORK( OpenGLES SimpleVideoFilter )
-ADD_FRAMEWORK( UIKit SimpleVideoFilter )
-
-# ADD_FRAMEWORK( AssetsLibrary SimpleVideoFilter )
-# ADD_FRAMEWORK( CoreMotion SimpleVideoFilter )
-
-macro(ADD_LOCAL_FRAMEWORK fwname appname fwpath )
-  find_library(FRAMEWORK_${fwname}
-    NAMES ${fwname}
-    PATHS ${fwpath}
-    PATH_SUFFIXES Frameworks
-    NO_DEFAULT_PATH)
-  if( ${FRAMEWORK_${fwname}} STREQUAL FRAMEWORK_${fwname}-NOTFOUND)
-    MESSAGE(ERROR ": Framework ${fwname} not found")
-  else()
-    TARGET_LINK_LIBRARIES(${appname} "${FRAMEWORK_${fwname}}/${fwname}")
-    MESSAGE(STATUS "Framework ${fwname} found at ${FRAMEWORK_${fwname}}")
-  endif()
-endmacro(ADD_LOCAL_FRAMEWORK)
-
-# Try to include the framework directly and then via the symbolic link
-
-# I'd like to be able to point ADD_FRAMEWORK to my own framework location:
-#
-# ADD_FRAMEWORK( opencv2 SimpleVideoFilter ${CMAKE_SOURCE_DIR}/prebuilt/ios )
-# ADD_FRAMEWORK( GPUImage SimpleVideoFilter ${CMAKE_OSX_SYSROOT}/prebuilt/ios )
-#
-# but can't seem to find the right syntax
-#
-# To get this macro working I had to symbolically link these frameworks (ugly):
-#
-# ln -s opencv2.framework /Applications/Xcode.app//Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/
-# ln -s GPUImage.framework /Applications/Xcode.app//Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/
-
-# Note: Instead of this we'll use the newly added (ios friendly) hunter support for GPUImage and opencv2
-# See: target_link_libraries above
-#ADD_FRAMEWORK( opencv2 SimpleVideoFilter ${CMAKE_OSX_SYSROOT}/System/Library )
-#ADD_FRAMEWORK( GPUImage SimpleVideoFilter ${CMAKE_OSX_SYSROOT}/System/Library )
-
-
-
-
-
-
-
-
-
-
+target_link_libraries(
+  SimpleVideoFilter
+  "-framework CoreGraphics"
+  "-framework Foundation"
+  "-framework UIKit"
+  "-framework QuartzCore"
+  "-framework ImageIO"
+  "-framework CoreGraphics"
+  "-framework CoreVideo"
+  "-framework CoreMedia"
+  "-framework CoreLocation" 
+  "-framework AVFoundation"
+  "-framework GLKit"
+  "-framework Accelerate"
+  "-framework OpenGLES"
+  "-framework UIKit"
+  ${OpenCV_LIBS}
+  ${GPUIMAGE_LIB}
+  )
 

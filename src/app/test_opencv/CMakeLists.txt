@@ -21,15 +21,8 @@ set(CMAKE_DEBUG_POSTFIX d)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 ### -- end
 
-message("$ENV{HUNTER_ROOT} hunter")
-message("$ENV{POLLY_ROOT} polly")
-message("$ENV{SUGAR_ROOT} sugar")
-message("$ENV{SUGAR_ROOT}/cmake/Sugar")
 include("$ENV{SUGAR_ROOT}/cmake/Sugar")
-
 include(sugar_include)
-
-message(" CMAKE_SOURCE_DIR => ${CMAKE_SOURCE_DIR} <= ")
 
 include_directories("${SUGAR_ROOT}/examples/third_party")
 include_directories("${CMAKE_SOURCE_DIR}/src/app/ios")
@@ -77,7 +70,7 @@ set_target_properties(
     test_opencv
     PROPERTIES
     XCODE_ATTRIBUTE_PRODUCT_NAME
-    "Example"
+    "test_opencv"
     XCODE_ATTRIBUTE_BUNDLE_IDENTIFIER
     "com.elucideye.TestOpencv.debug"
 )
@@ -86,7 +79,7 @@ set_target_properties(
     test_opencv
     PROPERTIES
     XCODE_ATTRIBUTE_PRODUCT_NAME[variant=Debug]
-    "Example-Dbg"
+    "test_opencv-Dbg"
     XCODE_ATTRIBUTE_BUNDLE_IDENTIFIER[variant=Debug]
     "com.elucideye.TestOpencv.debug"
 )
