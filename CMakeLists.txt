@@ -1,5 +1,17 @@
 cmake_minimum_required(VERSION 3.0)
 
+### Hunter snapshot that will be used ###
+include("cmake/HunterGate.cmake")
+HunterGate(
+    URL "https://github.com/ruslo/hunter/archive/v0.8.10.tar.gz"
+    SHA1 "9308d01ea52c7b8cf1347073c982c679dbac3c09"
+)
+
+hunter_add_package(Sugar)
+include(${SUGAR_ROOT}/cmake/Sugar)
+
+message("${SUGAR_ROOT}/cmake/Sugar")
+
 project(GPUOpenCV)
 
 string(COMPARE EQUAL "${CMAKE_OSX_SYSROOT}" "iphoneos" is_ios)
@@ -30,18 +42,11 @@ set(PREFIX "${CMAKE_CURRENT_BINARY_DIR}")
 set(INSTALL_DIR "${CMAKE_CURRENT_BINARY_DIR}")
 set(CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR})
 
-### Hunter snapshot that will be used ###
-include("cmake/HunterGate.cmake")
-HunterGate(
-    URL "https://github.com/ruslo/hunter/archive/v0.7.5.tar.gz"
-    SHA1 "264a0bd8f658bb6f50767146bde080d7c9788baf"
-)
-
 # Link our local package definitions into the installed hunter directory (for loop ?)
-execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink
-  ${CMAKE_SOURCE_DIR}/cmake/projects/OpenCV
-  ${HUNTER_SELF}/cmake/projects/OpenCV
-)
+#execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink
+#  ${CMAKE_SOURCE_DIR}/cmake/projects/OpenCV
+#  ${HUNTER_SELF}/cmake/projects/OpenCV
+#)
 
 # Set the cmake/Modules path and pull in some convenience macros
 #set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
@@ -56,7 +61,7 @@ PARALLEL_MAKE()
 
 # ((((( OpenCV )))))
 if(is_ios)
-  message("Use the OpenCV-ios hunter packages to grab the iOS framework (TODO)") 
+  message ("Configure OpenCV for ios") 
 elseif(APPLE)
   message ("Configure OpenCV for OS X") 
   include(SetOpenCVCMakeArgs-osx) # shorten long list
@@ -72,38 +77,59 @@ elseif(ANDROID)
   set(OPENCV_CMAKE_ARGS WITH_FFMPEG=OFF)
 endif()
 message("OPENCV_CMAKE_ARGS ${OPENCV_CMAKE_ARGS}")
-hunter_config(OpenCV VERSION 3.0.0-beta CMAKE_ARGS "${OPENCV_CMAKE_ARGS}")
+
+hunter_config(OpenCV VERSION 3.0.0-beta-p2 CMAKE_ARGS "${OPENCV_CMAKE_ARGS}")
 hunter_add_package(OpenCV)
 find_package(OpenCV REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
 
+message("APPLE ${APPLE} is_ios ${is_ois}")
+
 message("OPENCV INCLUDE FROM CMAKE: ${OpenCV_INCLUDE_DIRS} ....................${OpenCV_DIR}")
+
+find_package(ZLIB)
 
 # Find the BOOST libraries (TODO: possibly use hunter, very big/slow)
 find_package(Boost 1.55 REQUIRED system serialization filesystem)
 
-# cvmatio (Boost, OpenCV, ZLib)
-
-# GSTreamer detection for ZLIB causes assert to fail, so we need to specify this manually
-set(CVMATIO_CMAKE_ARGS "OpenCV_DIR=${OpenCV_DIR};ZLIB_ROOT=/usr/include;ZLIB_INCLUDE_ROOT=/usr/include")
-message("CVMATIO_CMAKE_ARGS ${CVMATIO_CMAKE_ARGS}")
-hunter_config(cvmatio VERSION 1.0.2 CMAKE_ARGS "${CVMATIO_CMAKE_ARGS}")
-hunter_add_package(cvmatio) 
-find_library(cvmatio_release cvmatio ${cvmatio_ROOT})
-find_library(cvmatio_debug cvmatio${CMAKE_DEBUG_POSTFIX} ${cvmatio_ROOT})
-message("Release: ${cvmatio_release}")
-message("Debug: ${cvmatio_debug}")
-#find_package(cvmatio REQUIRED)
-
-#hunter_config(dlib VERSION 18.14)
-#hunter_add_package(dlib) # header only
-
-#find_library(cvmatio_release cvmatio ${cvmatio_ROOT})
-#find_library(cvmatio_debug cvmatio${CMAKE_DEBUG_POSTFIX} ${cvmatio_ROOT})
-
 if(APPLE)
   include(MacroAddFramework)
+
+  # GPUImage apps are enabled on both iOS and OS X
+  hunter_config(GPUImage VERSION 0.1.6-hunter-1)
+  hunter_add_package(GPUImage)
+  find_package(GPUImage)
+
+  message("GPUImage_LIB ${GPUImage_LIB}")
+  message("GPUIMAGE_LIB ${GPUIMAGE_LIB}")
+  message("GPUImage_LIBS ${GPUImage_LIBS}")
+  message("GPUIMAGE_LIBS ${GPUIMAGE_LIBS}")
+  message("GPUIMAGE_LIBRARIES ${GPUIMAGE_LIBRARIES}")
+
+  find_library(gpuimage_release NAMES gpuimage ${GPUIMAGE_ROOT})
+  find_library(gpuimage_debug NAMES gpuimage{CMAKE_DEBUG_POSTFIX} ${GPUIMAGE_ROOT})
+  include_directories("${HUNTER_BASE}/Source/")  # i.e., ${HUNTER_ROOT}/_Base
+  if(is_debug)
+    set(GPUIMAGE_LIB ${gpuimage_debug})
+  else()
+    set(GPUIMAGE_LIB ${gpuimage_release})
+  endif(is_debug)
+
 endif()
+
+message("===============================")
+message("===============================")
+message("===============================")
+message("===============================")
+message("===============================")
+
+message("OpenCV_LIBS ${OpenCV_LIBS} GPUImage_LIBS ${GPUImage_LIBS}")
+
+message("===============================")
+message("===============================")
+message("===============================")
+message("===============================")
+message("===============================")
 
 #
 # Testing versioned libs and Framework builds (based on https://github.com/taglib/taglib)
@@ -131,6 +157,10 @@ if(APPLE)
   option(BUILD_FRAMEWORK "Build an OS X framework" OFF)
   set(FRAMEWORK_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/Library/Frameworks" CACHE STRING "Directory to install frameworks to.")
 endif()
+
+message( "$ENV{HUNTER_ROOT} <<< hunter" )
+message( "$ENV{POLLY_ROOT} <<< poly" )
+message( "$ENV{SUGAR_ROOT} SUGAR_ROOT <<< sugar" )
 
 include_directories(src/lib)
 add_subdirectory(src)
