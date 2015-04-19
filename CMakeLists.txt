@@ -90,7 +90,7 @@ message("OPENCV INCLUDE FROM CMAKE: ${OpenCV_INCLUDE_DIRS} ....................$
 find_package(ZLIB)
 
 # Find the BOOST libraries (TODO: possibly use hunter, very big/slow)
-find_package(Boost 1.55 REQUIRED system serialization filesystem)
+#find_package(Boost 1.55 REQUIRED system serialization filesystem)
 
 message("WARNING FORCING C++11 and LIBC++")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -stdlib=libc++") ## correct way to set these?

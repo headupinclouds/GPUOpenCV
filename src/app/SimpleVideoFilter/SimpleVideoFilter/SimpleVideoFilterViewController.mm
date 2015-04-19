@@ -136,6 +136,15 @@ typedef cv::Mat (^ FrameHandlerType)();
              // Draw something to prove the data has really round tripped from the GPU
              cv::Mat &canvas = strongSelf->output;
              cv::circle(canvas, {canvas.cols/2, canvas.rows/2}, canvas.cols/4, {0,255,0}, 4, CV_AA);
+
+	// Add some temporary stuff to check the ios-8-2 polly toolchain
+#if __cplusplus == 201103L 
+	std::cout << "HAS C++11 : " << __cplusplus << std::endl;
+#else if __cplusplus == 199711L
+	ERROR_ONLY_CPP98
+#else
+	ERROR_OLD_CPP
+#endif
              
              __strong GPUImageRawDataInput *strongIn = weakIn;
              
