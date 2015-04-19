@@ -1,5 +1,6 @@
 if(is_ios)
 	add_subdirectory(SimpleVideoFilter) # test our ios project createion
+	#add_subdirectory(test_opencv)       # test our opencv library
 else()
 	add_subdirectory(face)           # test opencv dependencies
 	add_subdirectory(batch_process)  # test opencv dependencies

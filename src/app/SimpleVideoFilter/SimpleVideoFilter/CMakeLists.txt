@@ -35,8 +35,6 @@ set (RESOURCES SimpleVideoFilterViewController.xib)
 
 set(CMAKE_CXX_FLAGS "-x objective-c++")
 
-
-
 add_executable (SimpleVideoFilter MACOSX_BUNDLE ${GPUOPENCV_SIMPLE_VIDEO_FILTER_SRCS} ${RESOURCES} )
 
 # http://stackoverflow.com/questions/7462129/cmake-xib-to-nib-compilation-for-ios-target
@@ -60,7 +58,9 @@ set_target_properties(SimpleVideoFilter PROPERTIES
     XCODE_ATTRIBUTE_ONLY_ACTIVE_ARCH "NO"
 )
 
-target_link_libraries(SimpleVideoFilter simple)
+
+message("LIBS: ${GPUImage_LIB} ${OpenCV_LIBS}")
+target_link_libraries(SimpleVideoFilter GPUOpenCV ${GPUImage_LIB} ${OpenCV_LIBS})
 
 #https://github.com/phaser/tests/blob/master/TestGame/dev/CMakeLists.txt
 ADD_FRAMEWORK( QuartzCore SimpleVideoFilter )
@@ -106,8 +106,16 @@ endmacro(ADD_LOCAL_FRAMEWORK)
 # ln -s opencv2.framework /Applications/Xcode.app//Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/
 # ln -s GPUImage.framework /Applications/Xcode.app//Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/
 
-ADD_FRAMEWORK( opencv2 SimpleVideoFilter ${CMAKE_OSX_SYSROOT}/System/Library )
-ADD_FRAMEWORK( GPUImage SimpleVideoFilter ${CMAKE_OSX_SYSROOT}/System/Library )
+# Note: Instead of this we'll use the newly added (ios friendly) hunter support for GPUImage and opencv2
+# See: target_link_libraries above
+#ADD_FRAMEWORK( opencv2 SimpleVideoFilter ${CMAKE_OSX_SYSROOT}/System/Library )
+#ADD_FRAMEWORK( GPUImage SimpleVideoFilter ${CMAKE_OSX_SYSROOT}/System/Library )
+
+
+
+
+
+
 
 
 
