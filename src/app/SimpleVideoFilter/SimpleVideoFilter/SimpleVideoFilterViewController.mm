@@ -140,7 +140,7 @@ typedef cv::Mat (^ FrameHandlerType)();
 	// Add some temporary stuff to check the ios-8-2 polly toolchain
 #if __cplusplus == 201103L 
 	std::cout << "HAS C++11 : " << __cplusplus << std::endl;
-#else if __cplusplus == 199711L
+#elif __cplusplus == 199711L
 	ERROR_ONLY_CPP98
 #else
 	ERROR_OLD_CPP
