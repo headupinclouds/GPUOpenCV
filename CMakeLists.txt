@@ -35,11 +35,19 @@ endif()
 
 ## the following are directories where stuff will be installed to
 ## (see taglib/CMakeLists.txt)
-set(LIB_SUFFIX "" CACHE STRING "Define suffix of directory name (32/64)")
-set(EXEC_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}" CACHE PATH "Base directory for executables and libraries" FORCE)
-set(BIN_INSTALL_DIR "${EXEC_INSTALL_PREFIX}/bin" CACHE PATH "The subdirectory to the binaries prefix (default prefix/bin)" FORCE)
-set(LIB_INSTALL_DIR "${EXEC_INSTALL_PREFIX}/lib${LIB_SUFFIX}" CACHE PATH "The subdirectory relative to the install prefix where libraries will be installed (default is /lib${LIB_SUFFIX})" FORCE)
-set(INCLUDE_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/include" CACHE PATH "The subdirectory to the header prefix" FORCE)
+## the following are directories where stuff will be installed to
+## (see taglib/CMakeLists.txt)
+set(LIB_SUFFIX_TXT "Define suffix of directory name (32/64)")
+set(EXEC_INSTALL_PREFIX_TXT "Base directory for executables and libraries")
+set(BIN_INSTALL_DIR_TXT "The subdirectory to the binaries prefix (default prefix/bin)")
+set(LIB_INSTALL_TXT "The subdirectory relative to the install prefix where libraries will be installed (default is /lib${LIB_SUFFIX}")
+set(INCLUDE_INSTALL_DIR_TXT "The subdirectory to the header prefix")
+
+set(LIB_SUFFIX "" CACHE STRING "${LIB_SUFFIX_TXT}")
+set(EXEC_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}" CACHE PATH "${EXEC_INSTALL_PREFIX_TXT}" FORCE)
+set(BIN_INSTALL_DIR "${EXEC_INSTALL_PREFIX}/bin" CACHE PATH "${BIN_INSTALL_DIR_TXT}" FORCE)
+set(LIB_INSTALL_DIR "${EXEC_INSTALL_PREFIX}/lib${LIB_SUFFIX}" CACHE PATH "${LIB_INSTALL_TXT}" FORCE)
+set(INCLUDE_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/include" CACHE PATH "${INCLUDE_INSTALL_DIR_TXT}" FORCE)
 
 # Desired behavior: 
 set(PREFIX "${CMAKE_CURRENT_BINARY_DIR}")
