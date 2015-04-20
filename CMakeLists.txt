@@ -1,11 +1,18 @@
 cmake_minimum_required(VERSION 3.0)
 
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/;${HUNTER_ROOT}/cmake/modules/")
+
 ### Hunter snapshot that will be used ###
+configure_file(cmake/Hunter/config.cmake "${CMAKE_BINARY_DIR}/hunter-config.cmake" @ONLY)
 include("cmake/HunterGate.cmake")
 HunterGate(
     URL "https://github.com/ruslo/hunter/archive/v0.8.10.tar.gz"
     SHA1 "9308d01ea52c7b8cf1347073c982c679dbac3c09"
+    FILEPATH "${CMAKE_BINARY_DIR}/hunter-config.cmake"
 )
+set(CMAKE_MODULE_PATH @CMAKE_MODULE_PATH@)
+
+# See: cmake/Hunter/config.cmake
 
 hunter_add_package(Sugar)
 include(${SUGAR_ROOT}/cmake/Sugar)
@@ -34,23 +41,13 @@ set(BIN_INSTALL_DIR "${EXEC_INSTALL_PREFIX}/bin" CACHE PATH "The subdirectory to
 set(LIB_INSTALL_DIR "${EXEC_INSTALL_PREFIX}/lib${LIB_SUFFIX}" CACHE PATH "The subdirectory relative to the install prefix where libraries will be installed (default is /lib${LIB_SUFFIX})" FORCE)
 set(INCLUDE_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/include" CACHE PATH "The subdirectory to the header prefix" FORCE)
 
-# copied from hunter git repository
-#include(hunter_cmake_args) 
-
 # Desired behavior: 
 set(PREFIX "${CMAKE_CURRENT_BINARY_DIR}")
 set(INSTALL_DIR "${CMAKE_CURRENT_BINARY_DIR}")
 set(CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR})
 
-# Link our local package definitions into the installed hunter directory (for loop ?)
-#execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink
-#  ${CMAKE_SOURCE_DIR}/cmake/projects/OpenCV
-#  ${HUNTER_SELF}/cmake/projects/OpenCV
-#)
-
 # Set the cmake/Modules path and pull in some convenience macros
 #set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/;${HUNTER_ROOT}/cmake/modules/")
 message("MODULE_PATH: ${CMAKE_MODULE_PATH}")
 include(ExternalProject) 
 include(hunter_cmake_args)
@@ -59,32 +56,11 @@ include(MacroParallelMake) # support make -jN via command line -DMULTITHREADED_B
 
 PARALLEL_MAKE()
 
-# ((((( OpenCV )))))
-if(is_ios)
-  message ("Configure OpenCV for ios") 
-elseif(APPLE)
-  message ("Configure OpenCV for OS X") 
-  include(SetOpenCVCMakeArgs-osx) # shorten long list
-  set_opencv_cmake_args_osx()
-elseif(is_linux)
-  message("Configure minimal OpenCV for Linux (TODO)")
-  set(OPENCV_CMAKE_ARGS WITH_FFMPEG=OFF)
-elseif(MSCV)
-  message("Configure minimal OpenCV for MSVC (TODO)")
-  set(OPENCV_CMAKE_ARGS WITH_FFMPEG=OFF WITH_OPENEXR=OFF)
-elseif(ANDROID)
-  message("Configure minimal OpenCV for Android (TODO)")
-  set(OPENCV_CMAKE_ARGS WITH_FFMPEG=OFF)
-endif()
-message("OPENCV_CMAKE_ARGS ${OPENCV_CMAKE_ARGS}")
-
-hunter_config(OpenCV VERSION 3.0.0-beta-p2 CMAKE_ARGS "${OPENCV_CMAKE_ARGS}")
 hunter_add_package(OpenCV)
 find_package(OpenCV REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
 
-message("APPLE ${APPLE} is_ios ${is_ois}")
-
+message("APPLE ${APPLE} is_ios ${is_ios}")
 message("OPENCV INCLUDE FROM CMAKE: ${OpenCV_INCLUDE_DIRS} ....................${OpenCV_DIR}")
 
 find_package(ZLIB)
@@ -101,7 +77,6 @@ if(APPLE)
   include(MacroAddFramework)
 
   # GPUImage apps are enabled on both iOS and OS X
-  hunter_config(GPUImage VERSION 0.1.6-hunter-1)
   hunter_add_package(GPUImage)
   find_package(GPUImage)
 
