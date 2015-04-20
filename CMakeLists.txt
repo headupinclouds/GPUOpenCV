@@ -5,9 +5,10 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/;$
 ### Hunter snapshot that will be used ###
 configure_file(cmake/Hunter/config.cmake "${CMAKE_BINARY_DIR}/hunter-config.cmake" @ONLY)
 include("cmake/HunterGate.cmake")
+
 HunterGate(
-    URL "https://github.com/ruslo/hunter/archive/v0.8.10.tar.gz"
-    SHA1 "9308d01ea52c7b8cf1347073c982c679dbac3c09"
+    URL "https://github.com/ruslo/hunter/archive/v0.8.12.tar.gz"
+    SHA1 "ced369107f0f2c7a68e9e93f43fc5492747dd721"
     FILEPATH "${CMAKE_BINARY_DIR}/hunter-config.cmake"
 )
 set(CMAKE_MODULE_PATH @CMAKE_MODULE_PATH@)
@@ -76,8 +77,8 @@ find_package(ZLIB)
 # Find the BOOST libraries (TODO: possibly use hunter, very big/slow)
 #find_package(Boost 1.55 REQUIRED system serialization filesystem)
 
-message("WARNING FORCING C++11 and LIBC++")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -stdlib=libc++") ## correct way to set these?
+#message("WARNING FORCING C++11 and LIBC++")
+#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -stdlib=libc++") ## correct way to set these?
 
 message("CMAKE_CXX_FLAGS : ${CMAKE_CXX_FLAGS}")
 
