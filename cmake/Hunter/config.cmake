@@ -2,6 +2,7 @@ set(CMAKE_MODULE_PATH @CMAKE_MODULE_PATH@) # fetch top level CMAKE_MODULE_PATH
 
 message(">:>:>:>:>:>:>:>:>:>:>:>:>:>:>:>:>: ${CMAKE_MODULE_PATH} <:<:<:<:<:<:<:<:<:<:<:<:<:<:<:<:<:<:<:<:<:<:<:")
 
+# possibly import these via CMakeLists.txt: i.e., @is_ios@, etc
 string(COMPARE EQUAL "${CMAKE_OSX_SYSROOT}" "iphoneos" is_ios)
 string(COMPARE EQUAL "${CMAKE_SYSTEM_NAME}" "Linux" is_linux)
 
@@ -24,3 +25,6 @@ hunter_config(OpenCV VERSION 3.0.0-beta-p2 CMAKE_ARGS "${OPENCV_CMAKE_ARGS}")
 
 # (((((( GPUImage ))))))
 hunter_config(GPUImage VERSION 0.1.6-hunter-1)
+
+# (((((( cvmatio ))))))
+hunter_config(cvmatio VERSION 1.0.10)
