@@ -27,4 +27,8 @@ hunter_config(OpenCV VERSION 3.0.0-beta-p2 CMAKE_ARGS "${OPENCV_CMAKE_ARGS}")
 hunter_config(GPUImage VERSION 0.1.6-hunter-1)
 
 # (((((( cvmatio ))))))
-hunter_config(cvmatio VERSION 1.0.10)
+hunter_config(cvmatio VERSION 1.0.11)
+
+hunter_config(ZLIB VERSION 1.2.8-p2)
+
+hunter_config(TIFF VERSION 4.0.2-hunter-2)

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
 
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/;${HUNTER_ROOT}/cmake/modules/")
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
 ### Hunter snapshot that will be used ###
 configure_file(cmake/Hunter/config.cmake "${CMAKE_BINARY_DIR}/hunter-config.cmake" @ONLY)
@@ -65,6 +65,20 @@ include(MacroParallelMake) # support make -jN via command line -DMULTITHREADED_B
 
 PARALLEL_MAKE()
 
+#   ZLIB_INCLUDE_DIRS   - where to find zlib.h, etc.
+#   ZLIB_LIBRARIES      - List of libraries when using zlib.
+#   ZLIB_FOUND          - True if zlib found.
+hunter_add_package(ZLIB)
+find_package(ZLIB)
+
+#   TIFF_INCLUDE_DIR, where to find tiff.h, etc.
+#   TIFF_LIBRARIES, libraries to link against to use TIFF.
+#   TIFF_FOUND, If false, do not try to use TIFF.
+hunter_add_package(TIFF)
+find_package(TIFF)
+
+message("ZLIB_INCLUDE_DIR: ${ZLIB_INCLUDE_DIR}")
+
 hunter_add_package(OpenCV)
 find_package(OpenCV REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
@@ -72,26 +86,35 @@ include_directories(${OpenCV_INCLUDE_DIRS})
 message("APPLE ${APPLE} is_ios ${is_ios}")
 message("OPENCV INCLUDE FROM CMAKE: ${OpenCV_INCLUDE_DIRS} ....................${OpenCV_DIR}")
 
-find_package(ZLIB)
-find_package(TIFF)
+# (((((( Boost ))))))
+#
+# 1) Do we need to include Boost here if the cvmatio package will include this
+# as a dependnecy?
+# 2) Will this be compiled 1x?
 
-# Find the BOOST libraries (TODO: possibly use hunter, very big/slow)
-#find_package(Boost 1.55 REQUIRED system serialization filesystem)
-
-#message("WARNING FORCING C++11 and LIBC++")
-#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -stdlib=libc++") ## correct way to set these?
+hunter_add_package(Boost COMPONENTS filesystem system serialization)
 
 # ((((((( CVMATIO )))))))
-# hunter_add_package(cvmatio)
-# find_package(cvmatio)
-# find_library(cvmatio_release NAMES cvmatio ${CVMATIO_ROOT})
-# find_library(cvmatio_debug NAMES cvmatio${CMAKE_DEBUG_POSTFIX} ${CVMATIO_ROOT})
-# include_directories("${HUNTER_GATE_ROOT}/_Base/Source/") 
-# if(is_debug)
-#   set(CVMATIO_LIB ${cvmatio_debug})
-# else()
-#   set(CVMATIO_LIB ${cvmatio_release})
-# endif(is_debug)
+
+hunter_add_package(cvmatio)
+#find_package(cvmatio) <= TODO: add FineCVMatIO.cmake
+message("CVMATIO_ROOT: ${CVMATIO_ROOT}")
+find_path(CVMATIO_INCLUDE_DIR NAMES MatlabIOContainer.hpp ${CVMATIO_ROOT})
+
+message(CVMATIO_INCLUDE_DIR ${CVMATIO_INCLUDE_DIR})
+
+find_library(cvmatio_release NAMES cvmatio ${CVMATIO_ROOT})
+find_library(cvmatio_debug NAMES cvmatio${CMAKE_DEBUG_POSTFIX} ${CVMATIO_ROOT})
+if(is_debug)
+  set(CVMATIO_LIB ${cvmatio_debug})
+else()
+  set(CVMATIO_LIB ${cvmatio_release})
+endif(is_debug)
+
+# Correct one?
+include_directories("$ENV{HUNTER_ROOT}/_Base/Source/") # <= cvmatio doesn't export headers
+include_directories("${HUNTER_BASE}/Source/")  # i.e., ${HUNTER_ROOT}/_Base
+include_directories("${HUNTER_GATE_ROOT}/_Base/Source/") 
 
 message("CMAKE_CXX_FLAGS : ${CMAKE_CXX_FLAGS}")
 
@@ -101,17 +124,9 @@ if(APPLE)
 
   # GPUImage apps are enabled on both iOS and OS X
   hunter_add_package(GPUImage)
-  find_package(GPUImage)
-
-  message("GPUImage_LIB ${GPUImage_LIB}")
-  message("GPUIMAGE_LIB ${GPUIMAGE_LIB}")
-  message("GPUImage_LIBS ${GPUImage_LIBS}")
-  message("GPUIMAGE_LIBS ${GPUIMAGE_LIBS}")
-  message("GPUIMAGE_LIBRARIES ${GPUIMAGE_LIBRARIES}")
-
+  #find_package(GPUImage) # <= TODO: add FindGPUImage.cmake
   find_library(gpuimage_release NAMES gpuimage ${GPUIMAGE_ROOT})
   find_library(gpuimage_debug NAMES gpuimage{CMAKE_DEBUG_POSTFIX} ${GPUIMAGE_ROOT})
-  include_directories("${HUNTER_BASE}/Source/")  # i.e., ${HUNTER_ROOT}/_Base
   if(is_debug)
     set(GPUIMAGE_LIB ${gpuimage_debug})
   else()
