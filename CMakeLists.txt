@@ -119,14 +119,9 @@ if(APPLE)
 
   # GPUImage apps are enabled on both iOS and OS X
   hunter_add_package(GPUImage)
-  #find_package(GPUImage) # <= TODO: add FindGPUImage.cmake
-  find_library(gpuimage_release NAMES gpuimage ${GPUIMAGE_ROOT})
-  find_library(gpuimage_debug NAMES gpuimage{CMAKE_DEBUG_POSTFIX} ${GPUIMAGE_ROOT})
-  if(is_debug)
-    set(GPUIMAGE_LIB ${gpuimage_debug})
-  else()
-    set(GPUIMAGE_LIB ${gpuimage_release})
-  endif(is_debug)
+  find_package(GPUImage) # ${GPUIMAGE_INCLUDE_DIR} ${GPUIMAGE_LIBRARY} ${GPUIMAGE_FOUND}
+  include_directories(${GPUIMAGE_INCLUDE_DIR})
+  message("GPUIMAGE: ${GPUIMAGE_INCLUDE_DIR} ${GPUIMAGE_LIBRARY} ${GPUIMAGE_FOUND}")
 
 endif()
 
