@@ -2,10 +2,9 @@ cmake_minimum_required(VERSION 3.0)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
-### Hunter snapshot that will be used ###
 configure_file(cmake/Hunter/config.cmake "${CMAKE_BINARY_DIR}/hunter-config.cmake" @ONLY)
 include("cmake/HunterGate.cmake")
-
+### Hunter snapshot that will be used ###
 HunterGate(
     URL "https://github.com/ruslo/hunter/archive/v0.8.12.tar.gz"
     SHA1 "ced369107f0f2c7a68e9e93f43fc5492747dd721"
@@ -14,10 +13,8 @@ HunterGate(
 set(CMAKE_MODULE_PATH @CMAKE_MODULE_PATH@)
 
 # See: cmake/Hunter/config.cmake
-
 hunter_add_package(Sugar)
 include(${SUGAR_ROOT}/cmake/Sugar)
-
 message("${SUGAR_ROOT}/cmake/Sugar")
 
 project(GPUOpenCV)
@@ -34,8 +31,6 @@ else()
   set(BUILD_SHARED_LIBS OFF)
 endif()
 
-## the following are directories where stuff will be installed to
-## (see taglib/CMakeLists.txt)
 ## the following are directories where stuff will be installed to
 ## (see taglib/CMakeLists.txt)
 set(LIB_SUFFIX_TXT "Define suffix of directory name (32/64)")
@@ -100,9 +95,6 @@ hunter_add_package(cvmatio)
 #find_package(cvmatio) <= TODO: add FineCVMatIO.cmake
 message("CVMATIO_ROOT: ${CVMATIO_ROOT}")
 find_path(CVMATIO_INCLUDE_DIR NAMES MatlabIOContainer.hpp ${CVMATIO_ROOT})
-
-message(CVMATIO_INCLUDE_DIR ${CVMATIO_INCLUDE_DIR})
-
 find_library(cvmatio_release NAMES cvmatio ${CVMATIO_ROOT})
 find_library(cvmatio_debug NAMES cvmatio${CMAKE_DEBUG_POSTFIX} ${CVMATIO_ROOT})
 if(is_debug)
@@ -110,6 +102,9 @@ if(is_debug)
 else()
   set(CVMATIO_LIB ${cvmatio_release})
 endif(is_debug)
+
+message("CVMATIO_INCLUDE_DIR ${CVMATIO_INCLUDE_DIR}")
+
 
 # Correct one?
 include_directories("$ENV{HUNTER_ROOT}/_Base/Source/") # <= cvmatio doesn't export headers
