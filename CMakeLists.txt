@@ -90,6 +90,7 @@ message("OPENCV INCLUDE FROM CMAKE: ${OpenCV_INCLUDE_DIRS} ....................$
 # 2) Will this be compiled 1x?
 
 hunter_add_package(Boost COMPONENTS filesystem system serialization)
+find_package(Boost COMPONENTS filesystem system serialization)
 
 # ((((((( CVMATIO )))))))
 
@@ -105,25 +106,20 @@ else()
   set(CVMATIO_LIB ${cvmatio_release})
 endif(is_debug)
 
-message("CVMATIO_INCLUDE_DIR ${CVMATIO_INCLUDE_DIR}")
-
-# Correct one?
-include_directories("$ENV{HUNTER_ROOT}/_Base/Source/") # <= cvmatio doesn't export headers
-include_directories("${HUNTER_BASE}/Source/")  # i.e., ${HUNTER_ROOT}/_Base
-include_directories("${HUNTER_GATE_ROOT}/_Base/Source/") 
-
-message("CMAKE_CXX_FLAGS : ${CMAKE_CXX_FLAGS}")
-
 # (((((( GPUIMAGE ))))))
+
 if(APPLE)
-  include(MacroAddFramework)
 
   # GPUImage apps are enabled on both iOS and OS X
   hunter_add_package(GPUImage)
   find_package(GPUImage CONFIG) # ${GPUIMAGE_INCLUDE_DIR} ${GPUIMAGE_LIBRARY} ${GPUIMAGE_FOUND}
   include_directories(${GPUIMAGE_INCLUDE_DIR})
-  message("GPUIMAGE: ${GPUIMAGE_INCLUDE_DIR} ${GPUIMAGE_LIBRARY} ${GPUIMAGE_FOUND}")
 
+  # https://github.com/ruslo/hunter/wiki/pkg.gpuimage
+  # RUSLO: How can we print the GPUImage::gpuimage alias?
+  message("GPUIMAGE: ${GPUIMAGE_INCLUDE_DIR} ${GPUIMAGE_LIBRARY} ${GPUIMAGE_FOUND} ")
+  message("GPUIMAGE: ${GPUImage_INCLUDE_DIR} ${GPUImage_LIBRARY} ${GPUImage_FOUND} ")
+  
 endif()
 
 message("===============================")
@@ -132,7 +128,7 @@ message("===============================")
 message("===============================")
 message("===============================")
 
-message("OpenCV_LIBS ${OpenCV_LIBS} GPUImage_LIBS ${GPUImage_LIBS}")
+message("OpenCV_LIBS ${OpenCV_LIBS} GPUImage_LIBS ${GPUImage_LIBS} ${GPUImage_LIBRARY}")
 
 message("===============================")
 message("===============================")
