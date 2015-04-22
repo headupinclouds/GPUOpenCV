@@ -10,8 +10,6 @@
 
 #import "GPUImageRectangleGenerator.h"
 
-#include "graphics/GLSLShaderProgram.h"
-
 #import <Foundation/Foundation.h>
 
 NSString *const kGPUImageLineGeneratorVertexShaderString = SHADER_STRING
@@ -46,14 +44,9 @@ NSString *const kGPUImageLineGeneratorFragmentShaderString = SHADER_STRING
  );
 #endif
 
-// Source: dhirvonen@elucideye.com
-// drishti/lib/graphics/graphics/MosaicRenderGL.cpp: R3x3To4x4
-
-namespace dg = drishti::graphics;
 
 @interface GPUImageRectangleGenerator()
 {
-    std::auto_ptr<dg::shader_prog> m_pPlanarShaderProgram;
     GLint m_PlanarUniformMVP;
     GLint m_PlanarUniformTexture;
     
@@ -72,39 +65,6 @@ enum { ATTRIB_VERTEX, ATTRIB_TEXTUREPOSITION, NUM_ATTRIBUTES };
 @synthesize lineWidth = _lineWidth;
 @synthesize size = _size;
 
-// From: dhirvonen@elucideye.com MosaicRenderGL::CompileShadersPlanar()
-- (void)compileWarpShaders
-{
-    const char *kPlanarVertexShaderString = R"(
-    attribute vec4 position;
-    attribute vec4 inputTextureCoordinate;
-    varying vec2 textureCoordinate;
-    uniform mat4 modelViewProjMatrix;
-    void main()
-    {
-        gl_Position = modelViewProjMatrix * position;
-        textureCoordinate = inputTextureCoordinate.xy;
-    })";
-    
-    const char *kPlanarFragmentShaderString = R"(
-    varying vec2 textureCoordinate;
-    uniform sampler2D texture;
-    void main()
-    {
-        gl_FragColor = texture2D(texture, textureCoordinate);
-    })";
-    
-    const GLchar * vShaderStr[] = { kPlanarVertexShaderString };
-    const GLchar * fShaderStr[] = { kPlanarFragmentShaderString };
-    
-    std::vector< std::pair<int, const char *> > attributes;
-    attributes.push_back( std::pair<int, const char*>(ATTRIB_VERTEX, "position") ); // m_frameVertices, i.e. (0, 0, w, h)
-    attributes.push_back( std::pair<int, const char*>(ATTRIB_TEXTUREPOSITION, "inputTextureCoordinate") ); // m_textureCoordinates, i.e. (-1, -1, 1, 1)
-    
-    m_pPlanarShaderProgram = std::auto_ptr<dg::shader_prog>( new dg::shader_prog(vShaderStr, fShaderStr, attributes) );
-    m_PlanarUniformMVP = m_pPlanarShaderProgram->GetUniformLocation("modelViewProjMatrix");
-    m_PlanarUniformTexture =  m_pPlanarShaderProgram->GetUniformLocation("texture");
-}
 
 - (id)initWithSize:(CGSize)size
 {
@@ -120,8 +80,6 @@ enum { ATTRIB_VERTEX, ATTRIB_TEXTUREPOSITION, NUM_ATTRIBUTES };
         self.lineWidth = 4.0;
         [self setLineColorRed:0.0 green:1.0 blue:0.0];
     });
-    
-    [self compileWarpShaders];
     
     return self;
 }

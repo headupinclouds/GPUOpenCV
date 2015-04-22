@@ -21,6 +21,8 @@ project(GPUOpenCV)
 
 string(COMPARE EQUAL "${CMAKE_OSX_SYSROOT}" "iphoneos" is_ios)
 string(COMPARE EQUAL "${CMAKE_SYSTEM_NAME}" "Linux" is_linux)
+string(COMPARE EQUAL "${CMAKE_BUILD_TYPE}" "DEBUG" is_debug)
+string(COMPARE EQUAL "${CMAKE_GENERATOR}" "Xcode" is_xcode)
 
 option(ENABLE_GPUOPENCV_SHARED "Build shared libraries"  ON)
 if(ENABLE_GPUOPENCV_SHARED)

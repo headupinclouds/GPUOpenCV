@@ -16,8 +16,4 @@ sugar_files(
   SLSSimpleVideoFilterWindowController.h
   SLSSimpleVideoFilterWindowController.mm
   main.mm
-  GPUImageRectangleGenerator.h	
-  GPUImageRectangleGenerator.mm
-#  GPUImageRGB2Lab.h
-#  GPUImageRGB2Lab.m
 )

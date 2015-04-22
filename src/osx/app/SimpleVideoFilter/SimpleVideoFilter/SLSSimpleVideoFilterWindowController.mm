@@ -6,7 +6,7 @@
 #import "GPUImage/GPUImageRawDataOutput.h"
 #import "GPUImage/GPUImageAlphaBlendFilter.h"
 
-#import "GPUImageRectangleGenerator.h"
+//#import "GPUImageRectangleGenerator.h"
 
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
@@ -37,7 +37,6 @@ static CGSize GPUImageConvert(const cv::Size &size) { return CGSizeMake(size.wid
     cv::Mat image, I;
 
     GPUImageAlphaBlendFilter *blendFilter;
-    GPUImageRectangleGenerator *lg;
 }
 @end
 
@@ -45,8 +44,10 @@ static CGSize GPUImageConvert(const cv::Size &size) { return CGSizeMake(size.wid
 
 - (int) detect
 {
-
+    return 0;
 }
+
+#if 1
 
 - (void)windowDidLoad {
     
@@ -88,19 +89,7 @@ static CGSize GPUImageConvert(const cv::Size &size) { return CGSizeMake(size.wid
     [rawIn addTarget:filterView];
 #endif
     
-    // Rectangle generator
-    lg = [[GPUImageRectangleGenerator alloc] initWithSize:GPUImageConvert(frameSize)];
-    lg.size = GPUImageConvert(frameSize);
-
-    // Allocate a blendFilter with two inputs
-    //   (1) GPUImageRectangleGenerator
-    //   (2) GPUImageFilter (direct output from camera)
-    
-    blendFilter = [[GPUImageAlphaBlendFilter alloc] init];
-    [filter addTarget:blendFilter];
-    [filter addTarget:lg];
-    [lg addTarget:blendFilter];
-    [blendFilter addTarget:filterView];
+    [filter addTarget:filterView];
 
     // Creaate weak references to avoid circular reference inside block/closure:
     __weak SLSSimpleVideoFilterWindowController *weakSelf = self;
@@ -125,7 +114,7 @@ static CGSize GPUImageConvert(const cv::Size &size) { return CGSizeMake(size.wid
 #if DO_CPU_DRAWING
              // Draw something to prove the data has really round tripped from the GPU:
 
-	     cv::rectangle(strongSelf->input, {0,0,100,100}, {0,255,0}, 4, 8);
+             cv::rectangle(strongSelf->input, {0,0,100,100}, {0,255,0}, 4, 8);
 
              __strong GPUImageRawDataInput *strongIn = weakIn;
              
@@ -135,16 +124,8 @@ static CGSize GPUImageConvert(const cv::Size &size) { return CGSizeMake(size.wid
              [strongIn updateDataFromBytes:strongSelf->input.ptr() size:GPUImageConvert(strongSelf->input.size())];
              [strongIn processData];
 #else
-             // Here we simply populate some rectangles in GPUImageRectangleGenerator.
-             // This GPUImageRawDataOutput filters (i.e., this callback) was placed ahead of the GPUImageRectangleGenerator
-             // in the filter chain, so when it receives a texture it will already have the rectangles needed to annotate
-             // the frame
-             std::vector<cv::Rect> rectangles;
-             for(auto &o : strongSelf->objects)
-                 rectangles.push_back( cv::Rect(0,0,100,100) );
-             
-             strongSelf->lg.H = cv::Matx33f::eye();
-             strongSelf->lg.rectangles = rectangles;
+	
+		// TODO: Add GPU drawing
 #endif
     
          }
