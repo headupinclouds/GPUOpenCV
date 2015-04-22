@@ -1,2 +1,12 @@
-add_subdirectory(app)
 add_subdirectory(lib)
+add_subdirectory(app)
+
+if(is_xcode)
+  if(is_ios)
+    message("ios ..........................")
+    #add_subdirectory(ios)
+  else(is_ios)
+    message("os x ..........................")
+    add_subdirectory(osx)
+  endif(is_ios)
+endif(is_xcode)

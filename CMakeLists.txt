@@ -6,8 +6,8 @@ configure_file(cmake/Hunter/config.cmake "${CMAKE_BINARY_DIR}/hunter-config.cmak
 include("cmake/HunterGate.cmake")
 ### Hunter snapshot that will be used ###
 HunterGate(
-    URL "https://github.com/ruslo/hunter/archive/v0.8.12.tar.gz"
-    SHA1 "ced369107f0f2c7a68e9e93f43fc5492747dd721"
+    URL "https://github.com/ruslo/hunter/archive/v0.8.13.tar.gz"
+    SHA1 "7103f0ab481523ca93a06c1c55abcd56741d3a97"
     FILEPATH "${CMAKE_BINARY_DIR}/hunter-config.cmake"
 )
 set(CMAKE_MODULE_PATH @CMAKE_MODULE_PATH@)
@@ -64,18 +64,18 @@ PARALLEL_MAKE()
 #   ZLIB_LIBRARIES      - List of libraries when using zlib.
 #   ZLIB_FOUND          - True if zlib found.
 hunter_add_package(ZLIB)
-find_package(ZLIB)
+find_package(ZLIB CONFIG)
 
 #   TIFF_INCLUDE_DIR, where to find tiff.h, etc.
 #   TIFF_LIBRARIES, libraries to link against to use TIFF.
 #   TIFF_FOUND, If false, do not try to use TIFF.
 hunter_add_package(TIFF)
-find_package(TIFF)
+find_package(TIFF CONFIG)
 
 message("ZLIB_INCLUDE_DIR: ${ZLIB_INCLUDE_DIR}")
 
 hunter_add_package(OpenCV)
-find_package(OpenCV REQUIRED)
+find_package(OpenCV CONFIG REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
 
 message("APPLE ${APPLE} is_ios ${is_ios}")
@@ -105,7 +105,6 @@ endif(is_debug)
 
 message("CVMATIO_INCLUDE_DIR ${CVMATIO_INCLUDE_DIR}")
 
-
 # Correct one?
 include_directories("$ENV{HUNTER_ROOT}/_Base/Source/") # <= cvmatio doesn't export headers
 include_directories("${HUNTER_BASE}/Source/")  # i.e., ${HUNTER_ROOT}/_Base
@@ -119,7 +118,7 @@ if(APPLE)
 
   # GPUImage apps are enabled on both iOS and OS X
   hunter_add_package(GPUImage)
-  find_package(GPUImage) # ${GPUIMAGE_INCLUDE_DIR} ${GPUIMAGE_LIBRARY} ${GPUIMAGE_FOUND}
+  find_package(GPUImage CONFIG) # ${GPUIMAGE_INCLUDE_DIR} ${GPUIMAGE_LIBRARY} ${GPUIMAGE_FOUND}
   include_directories(${GPUIMAGE_INCLUDE_DIR})
   message("GPUIMAGE: ${GPUIMAGE_INCLUDE_DIR} ${GPUIMAGE_LIBRARY} ${GPUIMAGE_FOUND}")
 
