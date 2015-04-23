@@ -92,6 +92,18 @@ message("OPENCV INCLUDE FROM CMAKE: ${OpenCV_INCLUDE_DIRS} ....................$
 hunter_add_package(Boost COMPONENTS filesystem system serialization)
 find_package(Boost COMPONENTS filesystem system serialization)
 
+# https://github.com/ruslo/hunter/wiki/pkg.boost
+
+# MSVC build
+if(MSVC)
+  add_definitions(-DBOOST_ALL_NO_LIB=1)
+endif()
+# Detect iOS build
+if(is_ios)
+  # Strange iOS alignment(?) bug (TODO)
+  #target_compile_definitions(sober PUBLIC BOOST_SP_NO_SYNC)
+endif()
+
 # ((((((( CVMATIO )))))))
 
 hunter_add_package(cvmatio)

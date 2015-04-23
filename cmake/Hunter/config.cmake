@@ -24,7 +24,7 @@ endif()
 hunter_config(OpenCV VERSION 3.0.0-beta-p2 CMAKE_ARGS "${OPENCV_CMAKE_ARGS}")
 
 ### GPUImage
-hunter_config(GPUImage VERSION 0.1.6-p3)
+hunter_config(GPUImage VERSION 0.1.6-p4)
 
 ### cvmatio
 hunter_config(cvmatio VERSION 1.0.18)
