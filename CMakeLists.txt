@@ -14,7 +14,6 @@ HunterGate(
 # See: cmake/Hunter/config.cmake
 hunter_add_package(Sugar)
 include(${SUGAR_ROOT}/cmake/Sugar)
-message("${SUGAR_ROOT}/cmake/Sugar")
 
 project(GPUOpenCV)
 
@@ -25,10 +24,8 @@ string(COMPARE EQUAL "${CMAKE_GENERATOR}" "Xcode" is_xcode)
 
 option(ENABLE_GPUOPENCV_SHARED "Build shared libraries"  ON)
 if(ENABLE_GPUOPENCV_SHARED)
-  message("BUILD_SHARED_LIBS ON")
   set(BUILD_SHARED_LIBS ON)
 else()
-  message("BUILD_SHARED_LIBS OFF")
   set(BUILD_SHARED_LIBS OFF)
 endif()
 
@@ -71,14 +68,9 @@ find_package(ZLIB CONFIG)
 hunter_add_package(TIFF)
 find_package(TIFF CONFIG)
 
-message("ZLIB_INCLUDE_DIR: ${ZLIB_INCLUDE_DIR}")
-
 hunter_add_package(OpenCV)
 find_package(OpenCV CONFIG REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
-
-message("APPLE ${APPLE} is_ios ${is_ios}")
-message("OPENCV INCLUDE FROM CMAKE: ${OpenCV_INCLUDE_DIRS} ....................${OpenCV_DIR}")
 
 # (((((( Boost ))))))
 #
@@ -105,7 +97,6 @@ endif()
 
 hunter_add_package(cvmatio)
 #find_package(cvmatio) <= TODO: add FineCVMatIO.cmake
-message("CVMATIO_ROOT: ${CVMATIO_ROOT}")
 find_path(CVMATIO_INCLUDE_DIR NAMES MatlabIOContainer.hpp ${CVMATIO_ROOT})
 find_library(cvmatio_release NAMES cvmatio ${CVMATIO_ROOT})
 find_library(cvmatio_debug NAMES cvmatio${CMAKE_DEBUG_POSTFIX} ${CVMATIO_ROOT})
@@ -126,24 +117,7 @@ if(APPLE)
 
   # https://github.com/ruslo/hunter/wiki/pkg.gpuimage
   # RUSLO: How can we print the GPUImage::gpuimage alias?
-  message("GPUIMAGE: ${GPUIMAGE_INCLUDE_DIR} ${GPUIMAGE_LIBRARY} ${GPUIMAGE_FOUND} ")
-  message("GPUIMAGE: ${GPUImage_INCLUDE_DIR} ${GPUImage_LIBRARY} ${GPUImage_FOUND} ")
-
 endif()
-
-message("===============================")
-message("===============================")
-message("===============================")
-message("===============================")
-message("===============================")
-
-message("OpenCV_LIBS ${OpenCV_LIBS} GPUImage_LIBS ${GPUImage_LIBS} ${GPUImage_LIBRARY}")
-
-message("===============================")
-message("===============================")
-message("===============================")
-message("===============================")
-message("===============================")
 
 #
 # Testing versioned libs and Framework builds (based on https://github.com/taglib/taglib)
@@ -172,9 +146,18 @@ if(APPLE)
   set(FRAMEWORK_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/Library/Frameworks" CACHE STRING "Directory to install frameworks to.")
 endif()
 
-message( "$ENV{HUNTER_ROOT} <<< hunter" )
-message( "$ENV{POLLY_ROOT} <<< poly" )
-message( "$ENV{SUGAR_ROOT} SUGAR_ROOT <<< sugar" )
-
 include_directories(src/lib)
 add_subdirectory(src)
+
+message("${PROJECT_NAME}:")
+message("-- system --")
+message("  APPLE: ${APPLE}")
+message("  iOS: ${is_ios}")
+message("-- configuration --")
+message("  Build shared libraries: ${BUILD_SHARED_LIBS}")
+message("-- packages --")
+message("  Sugar: ${SUGAR_ROOT}/cmake/Sugar")
+message("  ZLIB: ${ZLIB_DIR}")
+message("  OpenCV: ${OpenCV_DIR}")
+message("  CVMATIO: ${CVMATIO_DIR}")
+message("  GPUImage: ${GPUImage_DIR}")
