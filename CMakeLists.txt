@@ -46,13 +46,13 @@ set(BIN_INSTALL_DIR "${EXEC_INSTALL_PREFIX}/bin" CACHE PATH "${BIN_INSTALL_DIR_T
 set(LIB_INSTALL_DIR "${EXEC_INSTALL_PREFIX}/lib${LIB_SUFFIX}" CACHE PATH "${LIB_INSTALL_TXT}" FORCE)
 set(INCLUDE_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/include" CACHE PATH "${INCLUDE_INSTALL_DIR_TXT}" FORCE)
 
-# Desired behavior: 
+# Desired behavior:
 set(PREFIX "${CMAKE_CURRENT_BINARY_DIR}")
 set(INSTALL_DIR "${CMAKE_CURRENT_BINARY_DIR}")
 set(CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR})
 
 # Set the cmake/Modules path and pull in some convenience macros
-include(ExternalProject) 
+include(ExternalProject)
 include(hunter_cmake_args)
 include(ForEachPrepend)
 include(MacroParallelMake) # support make -jN via command line -DMULTITHREADED_BUILD=8
@@ -128,7 +128,7 @@ if(APPLE)
   # RUSLO: How can we print the GPUImage::gpuimage alias?
   message("GPUIMAGE: ${GPUIMAGE_INCLUDE_DIR} ${GPUIMAGE_LIBRARY} ${GPUIMAGE_FOUND} ")
   message("GPUIMAGE: ${GPUImage_INCLUDE_DIR} ${GPUImage_LIBRARY} ${GPUImage_FOUND} ")
-  
+
 endif()
 
 message("===============================")
@@ -149,7 +149,7 @@ message("===============================")
 # Testing versioned libs and Framework builds (based on https://github.com/taglib/taglib)
 #
 
-# Library configuration stuff 
+# Library configuration stuff
 set(GPUOPENCV_LIB_MAJOR_VERSION "1")
 set(GPUOPENCV_LIB_MINOR_VERSION "0")
 set(GPUOPENCV_LIB_PATCH_VERSION "0")
@@ -158,7 +158,7 @@ set(GPUOPENCV_LIB_VERSION_STRING "${GPUOPENCV_LIB_MAJOR_VERSION}.${GPUOPENCV_LIB
 # 1. If the library source code has changed at all since the last update, then increment revision.
 # 2. If any interfaces have been added, removed, or changed since the last update, increment current, and set revision to 0.
 # 3. If any interfaces have been added since the last public release, then increment age.
-# 4. If any interfaces have been removed since the last public release, then set age to 0. 
+# 4. If any interfaces have been removed since the last public release, then set age to 0.
 set(GPUOPENCV_SOVERSION_CURRENT  1)
 set(GPUOPENCV_SOVERSION_REVISION 0)
 set(GPUOPENCV_SOVERSION_AGE      0)
