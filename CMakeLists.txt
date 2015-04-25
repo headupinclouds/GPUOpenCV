@@ -23,12 +23,7 @@ string(COMPARE EQUAL "${CMAKE_SYSTEM_NAME}" "Linux" is_linux)
 string(COMPARE EQUAL "${CMAKE_BUILD_TYPE}" "DEBUG" is_debug)
 string(COMPARE EQUAL "${CMAKE_GENERATOR}" "Xcode" is_xcode)
 
-option(ENABLE_GPUOPENCV_SHARED "Build shared libraries"  ON)
-if(ENABLE_GPUOPENCV_SHARED)
-  set(BUILD_SHARED_LIBS ON)
-else()
-  set(BUILD_SHARED_LIBS OFF)
-endif()
+option(BUILD_SHARED_LIBS "Build shared libraries" ON)
 
 ## the following are directories where stuff will be installed to
 ## (see taglib/CMakeLists.txt)
