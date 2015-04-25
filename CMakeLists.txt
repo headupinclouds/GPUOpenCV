@@ -10,7 +10,6 @@ HunterGate(
     SHA1 "7103f0ab481523ca93a06c1c55abcd56741d3a97"
     FILEPATH "${CMAKE_BINARY_DIR}/hunter-config.cmake"
 )
-set(CMAKE_MODULE_PATH @CMAKE_MODULE_PATH@)
 
 # See: cmake/Hunter/config.cmake
 hunter_add_package(Sugar)
@@ -53,8 +52,6 @@ set(INSTALL_DIR "${CMAKE_CURRENT_BINARY_DIR}")
 set(CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR})
 
 # Set the cmake/Modules path and pull in some convenience macros
-#set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
-message("MODULE_PATH: ${CMAKE_MODULE_PATH}")
 include(ExternalProject) 
 include(hunter_cmake_args)
 include(ForEachPrepend)
