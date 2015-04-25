@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.0)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake/Modules")
 
 configure_file(cmake/Hunter/config.cmake "${CMAKE_BINARY_DIR}/hunter-config.cmake" @ONLY)
+
 include("cmake/HunterGate.cmake")
 ### Hunter snapshot that will be used ###
 HunterGate(
@@ -11,11 +12,11 @@ HunterGate(
     FILEPATH "${CMAKE_BINARY_DIR}/hunter-config.cmake"
 )
 
+project(GPUOpenCV)
+
 # See: cmake/Hunter/config.cmake
 hunter_add_package(Sugar)
 include(${SUGAR_ROOT}/cmake/Sugar)
-
-project(GPUOpenCV)
 
 string(COMPARE EQUAL "${CMAKE_OSX_SYSROOT}" "iphoneos" is_ios)
 string(COMPARE EQUAL "${CMAKE_SYSTEM_NAME}" "Linux" is_linux)
