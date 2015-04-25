@@ -16,7 +16,7 @@ project(GPUOpenCV)
 
 # See: cmake/Hunter/config.cmake
 hunter_add_package(Sugar)
-include(${SUGAR_ROOT}/cmake/Sugar)
+include("${SUGAR_ROOT}/cmake/Sugar")
 
 string(COMPARE EQUAL "${CMAKE_OSX_SYSROOT}" "iphoneos" is_ios)
 string(COMPARE EQUAL "${CMAKE_SYSTEM_NAME}" "Linux" is_linux)
@@ -47,7 +47,7 @@ set(INCLUDE_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/include" CACHE PATH "${INCLUDE_
 # Desired behavior:
 set(PREFIX "${CMAKE_CURRENT_BINARY_DIR}")
 set(INSTALL_DIR "${CMAKE_CURRENT_BINARY_DIR}")
-set(CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR})
+set(CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}")
 
 # Set the cmake/Modules path and pull in some convenience macros
 include(ExternalProject)
@@ -98,13 +98,13 @@ endif()
 
 hunter_add_package(cvmatio)
 #find_package(cvmatio) <= TODO: add FineCVMatIO.cmake
-find_path(CVMATIO_INCLUDE_DIR NAMES MatlabIOContainer.hpp ${CVMATIO_ROOT})
-find_library(cvmatio_release NAMES cvmatio ${CVMATIO_ROOT})
-find_library(cvmatio_debug NAMES cvmatio${CMAKE_DEBUG_POSTFIX} ${CVMATIO_ROOT})
+find_path(CVMATIO_INCLUDE_DIR NAMES MatlabIOContainer.hpp "${CVMATIO_ROOT}")
+find_library(cvmatio_release NAMES cvmatio "${CVMATIO_ROOT}")
+find_library(cvmatio_debug NAMES cvmatio${CMAKE_DEBUG_POSTFIX} "${CVMATIO_ROOT}")
 if(is_debug)
-  set(CVMATIO_LIB ${cvmatio_debug})
+  set(CVMATIO_LIB "${cvmatio_debug}")
 else()
-  set(CVMATIO_LIB ${cvmatio_release})
+  set(CVMATIO_LIB "${cvmatio_release}")
 endif(is_debug)
 
 # (((((( GPUIMAGE ))))))
@@ -114,7 +114,7 @@ if(APPLE)
   # GPUImage apps are enabled on both iOS and OS X
   hunter_add_package(GPUImage)
   find_package(GPUImage CONFIG) # ${GPUIMAGE_INCLUDE_DIR} ${GPUIMAGE_LIBRARY} ${GPUIMAGE_FOUND}
-  include_directories(${GPUIMAGE_INCLUDE_DIR})
+  include_directories("${GPUIMAGE_INCLUDE_DIR}")
 
   # https://github.com/ruslo/hunter/wiki/pkg.gpuimage
   # RUSLO: How can we print the GPUImage::gpuimage alias?
