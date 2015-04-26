@@ -69,8 +69,6 @@ find_package(OpenCV CONFIG REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
 
 # (((((( Boost ))))))
-#
-# 2) Will this be compiled 1x?
 
 hunter_add_package(Boost COMPONENTS filesystem system serialization)
 find_package(Boost COMPONENTS filesystem system serialization)
