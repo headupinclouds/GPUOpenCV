@@ -70,8 +70,6 @@ include_directories(${OpenCV_INCLUDE_DIRS})
 
 # (((((( Boost ))))))
 #
-# 1) Do we need to include Boost here if the cvmatio package will include this
-# as a dependnecy?
 # 2) Will this be compiled 1x?
 
 hunter_add_package(Boost COMPONENTS filesystem system serialization)
