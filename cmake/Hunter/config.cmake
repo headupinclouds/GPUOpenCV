@@ -22,27 +22,3 @@ elseif(ANDROID)
 endif()
 
 hunter_config(OpenCV VERSION 3.0.0-beta-p2 CMAKE_ARGS "${OPENCV_CMAKE_ARGS}")
-
-### GPUImage
-hunter_config(GPUImage VERSION 0.1.6-p4)
-
-### cvmatio
-hunter_config(cvmatio VERSION 1.0.18)
-
-### ZLIB
-hunter_config(ZLIB VERSION 1.2.8-p2)
-
-### TIFF 
-hunter_config(TIFF VERSION 4.0.2-hunter-2)
-
-### Boost
-hunter_config(Boost VERSION 1.57.0)
-
-### DLIB
-hunter_config(dlib VERSION 18.14)
-
-### EIGEN
-hunter_config(Eigen VERSION 3.2.4)
-
-### CSV-PARSER-CPLUSPLUS
-hunter_config(CsvParserCPlusPlus VERSION 1.0.1)
