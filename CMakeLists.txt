@@ -112,7 +112,6 @@ if(APPLE)
   include_directories("${GPUIMAGE_INCLUDE_DIR}")
 
   # https://github.com/ruslo/hunter/wiki/pkg.gpuimage
-  # RUSLO: How can we print the GPUImage::gpuimage alias?
 endif()
 
 #
