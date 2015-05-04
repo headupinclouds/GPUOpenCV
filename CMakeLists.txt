@@ -85,27 +85,20 @@ if(is_ios)
   #target_compile_definitions(sober PUBLIC BOOST_SP_NO_SYNC)
 endif()
 
-# ((((((( CVMATIO )))))))
+message("OK HERE A")
 
-hunter_add_package(cvmatio)
-#find_package(cvmatio) <= TODO: add FineCVMatIO.cmake
-find_path(CVMATIO_INCLUDE_DIR NAMES MatlabIOContainer.hpp "${CVMATIO_ROOT}")
-find_library(cvmatio_release NAMES cvmatio "${CVMATIO_ROOT}")
-find_library(cvmatio_debug NAMES cvmatio${CMAKE_DEBUG_POSTFIX} "${CVMATIO_ROOT}")
-if(is_debug)
-  set(CVMATIO_LIB "${cvmatio_debug}")
-else()
-  set(CVMATIO_LIB "${cvmatio_release}")
-endif(is_debug)
+# ((((((( CVMATIO )))))))
+#hunter_add_package(cvmatio) 
+#find_package(cvmatio REQUIRED CONFIG)
+
+message("OK HERE")
 
 # (((((( GPUIMAGE ))))))
-
 if(APPLE)
 
   # GPUImage apps are enabled on both iOS and OS X
   hunter_add_package(GPUImage)
   find_package(GPUImage CONFIG) # ${GPUIMAGE_INCLUDE_DIR} ${GPUIMAGE_LIBRARY} ${GPUIMAGE_FOUND}
-  include_directories("${GPUIMAGE_INCLUDE_DIR}")
 
   # https://github.com/ruslo/hunter/wiki/pkg.gpuimage
 endif()
