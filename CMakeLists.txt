@@ -89,8 +89,8 @@ message("OPENCV INCLUDE FROM CMAKE: ${OpenCV_INCLUDE_DIRS} ....................$
 # as a dependnecy?
 # 2) Will this be compiled 1x?
 
-hunter_add_package(Boost COMPONENTS filesystem system serialization)
-find_package(Boost COMPONENTS filesystem system serialization)
+hunter_add_package(Boost COMPONENTS system filesystem serialization)
+find_package(Boost COMPONENTS system filesystem serialization)
 
 # https://github.com/ruslo/hunter/wiki/pkg.boost
 
@@ -134,19 +134,7 @@ if(APPLE)
   
 endif()
 
-message("===============================")
-message("===============================")
-message("===============================")
-message("===============================")
-message("===============================")
-
 message("OpenCV_LIBS ${OpenCV_LIBS} GPUImage_LIBS ${GPUImage_LIBS} ${GPUImage_LIBRARY}")
-
-message("===============================")
-message("===============================")
-message("===============================")
-message("===============================")
-message("===============================")
 
 #
 # Testing versioned libs and Framework builds (based on https://github.com/taglib/taglib)

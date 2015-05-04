@@ -85,6 +85,7 @@ set_target_properties(
 
 target_link_libraries(
   SimpleVideoFilter
+  "-framework GPUOpenCV"
   ${OpenCV_LIBS}
   GPUImage::gpuimage
   "-framework CoreGraphics"
@@ -101,6 +102,5 @@ target_link_libraries(
   "-framework Accelerate"
   "-framework OpenGLES"
   "-framework UIKit"
-
   )
 
