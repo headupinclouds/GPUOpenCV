@@ -1,37 +1,29 @@
 cmake_minimum_required(VERSION 3.0)
 
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake/Modules")
 
-configure_file(cmake/Hunter/config.cmake "${CMAKE_BINARY_DIR}/hunter-config.cmake" @ONLY)
+set(custom_config "${CMAKE_CURRENT_BINARY_DIR}/hunter-config.cmake")
+configure_file(cmake/Hunter/config.cmake "${custom_config}" @ONLY)
+
 include("cmake/HunterGate.cmake")
 ### Hunter snapshot that will be used ###
 HunterGate(
     URL "https://github.com/ruslo/hunter/archive/v0.8.13.tar.gz"
     SHA1 "7103f0ab481523ca93a06c1c55abcd56741d3a97"
-    FILEPATH "${CMAKE_BINARY_DIR}/hunter-config.cmake"
+    FILEPATH "${custom_config}"
 )
-set(CMAKE_MODULE_PATH @CMAKE_MODULE_PATH@)
-
-# See: cmake/Hunter/config.cmake
-hunter_add_package(Sugar)
-include(${SUGAR_ROOT}/cmake/Sugar)
-message("${SUGAR_ROOT}/cmake/Sugar")
 
 project(GPUOpenCV)
 
+# See: cmake/Hunter/config.cmake
+hunter_add_package(Sugar)
+include("${SUGAR_ROOT}/cmake/Sugar")
+
 string(COMPARE EQUAL "${CMAKE_OSX_SYSROOT}" "iphoneos" is_ios)
-string(COMPARE EQUAL "${CMAKE_SYSTEM_NAME}" "Linux" is_linux)
 string(COMPARE EQUAL "${CMAKE_BUILD_TYPE}" "DEBUG" is_debug)
 string(COMPARE EQUAL "${CMAKE_GENERATOR}" "Xcode" is_xcode)
 
-option(ENABLE_GPUOPENCV_SHARED "Build shared libraries"  ON)
-if(ENABLE_GPUOPENCV_SHARED)
-  message("BUILD_SHARED_LIBS ON")
-  set(BUILD_SHARED_LIBS ON)
-else()
-  message("BUILD_SHARED_LIBS OFF")
-  set(BUILD_SHARED_LIBS OFF)
-endif()
+option(BUILD_SHARED_LIBS "Build shared libraries" ON)
 
 ## the following are directories where stuff will be installed to
 ## (see taglib/CMakeLists.txt)
@@ -50,11 +42,9 @@ set(INCLUDE_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/include" CACHE PATH "${INCLUDE_
 # Desired behavior: 
 set(PREFIX "${CMAKE_CURRENT_BINARY_DIR}")
 set(INSTALL_DIR "${CMAKE_CURRENT_BINARY_DIR}")
-set(CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR})
+set(CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}")
 
 # Set the cmake/Modules path and pull in some convenience macros
-#set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
-message("MODULE_PATH: ${CMAKE_MODULE_PATH}")
 include(ExternalProject) 
 include(hunter_cmake_args)
 include(ForEachPrepend)
@@ -74,20 +64,11 @@ find_package(ZLIB CONFIG)
 hunter_add_package(TIFF)
 find_package(TIFF CONFIG)
 
-message("ZLIB_INCLUDE_DIR: ${ZLIB_INCLUDE_DIR}")
-
 hunter_add_package(OpenCV)
 find_package(OpenCV CONFIG REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
 
-message("APPLE ${APPLE} is_ios ${is_ios}")
-message("OPENCV INCLUDE FROM CMAKE: ${OpenCV_INCLUDE_DIRS} ....................${OpenCV_DIR}")
-
 # (((((( Boost ))))))
-#
-# 1) Do we need to include Boost here if the cvmatio package will include this
-# as a dependnecy?
-# 2) Will this be compiled 1x?
 
 hunter_add_package(Boost COMPONENTS system filesystem serialization)
 find_package(Boost COMPONENTS system filesystem serialization)
@@ -108,14 +89,13 @@ endif()
 
 hunter_add_package(cvmatio)
 #find_package(cvmatio) <= TODO: add FineCVMatIO.cmake
-message("CVMATIO_ROOT: ${CVMATIO_ROOT}")
-find_path(CVMATIO_INCLUDE_DIR NAMES MatlabIOContainer.hpp ${CVMATIO_ROOT})
-find_library(cvmatio_release NAMES cvmatio ${CVMATIO_ROOT})
-find_library(cvmatio_debug NAMES cvmatio${CMAKE_DEBUG_POSTFIX} ${CVMATIO_ROOT})
+find_path(CVMATIO_INCLUDE_DIR NAMES MatlabIOContainer.hpp "${CVMATIO_ROOT}")
+find_library(cvmatio_release NAMES cvmatio "${CVMATIO_ROOT}")
+find_library(cvmatio_debug NAMES cvmatio${CMAKE_DEBUG_POSTFIX} "${CVMATIO_ROOT}")
 if(is_debug)
-  set(CVMATIO_LIB ${cvmatio_debug})
+  set(CVMATIO_LIB "${cvmatio_debug}")
 else()
-  set(CVMATIO_LIB ${cvmatio_release})
+  set(CVMATIO_LIB "${cvmatio_release}")
 endif(is_debug)
 
 # (((((( GPUIMAGE ))))))
@@ -125,16 +105,10 @@ if(APPLE)
   # GPUImage apps are enabled on both iOS and OS X
   hunter_add_package(GPUImage)
   find_package(GPUImage CONFIG) # ${GPUIMAGE_INCLUDE_DIR} ${GPUIMAGE_LIBRARY} ${GPUIMAGE_FOUND}
-  include_directories(${GPUIMAGE_INCLUDE_DIR})
+  include_directories("${GPUIMAGE_INCLUDE_DIR}")
 
   # https://github.com/ruslo/hunter/wiki/pkg.gpuimage
-  # RUSLO: How can we print the GPUImage::gpuimage alias?
-  message("GPUIMAGE: ${GPUIMAGE_INCLUDE_DIR} ${GPUIMAGE_LIBRARY} ${GPUIMAGE_FOUND} ")
-  message("GPUIMAGE: ${GPUImage_INCLUDE_DIR} ${GPUImage_LIBRARY} ${GPUImage_FOUND} ")
-  
 endif()
-
-message("OpenCV_LIBS ${OpenCV_LIBS} GPUImage_LIBS ${GPUImage_LIBS} ${GPUImage_LIBRARY}")
 
 #
 # Testing versioned libs and Framework builds (based on https://github.com/taglib/taglib)
@@ -163,9 +137,18 @@ if(APPLE)
   set(FRAMEWORK_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/Library/Frameworks" CACHE STRING "Directory to install frameworks to.")
 endif()
 
-message( "$ENV{HUNTER_ROOT} <<< hunter" )
-message( "$ENV{POLLY_ROOT} <<< poly" )
-message( "$ENV{SUGAR_ROOT} SUGAR_ROOT <<< sugar" )
-
 include_directories(src/lib)
 add_subdirectory(src)
+
+message("${PROJECT_NAME}:")
+message("-- system --")
+message("  APPLE: ${APPLE}")
+message("  iOS: ${is_ios}")
+message("-- configuration --")
+message("  Build shared libraries: ${BUILD_SHARED_LIBS}")
+message("-- packages --")
+message("  Sugar: ${SUGAR_ROOT}/cmake/Sugar")
+message("  ZLIB: ${ZLIB_DIR}")
+message("  OpenCV: ${OpenCV_DIR}")
+message("  CVMATIO: ${CVMATIO_DIR}")
+message("  GPUImage: ${GPUImage_DIR}")
