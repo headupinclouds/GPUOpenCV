@@ -23,7 +23,12 @@ string(COMPARE EQUAL "${CMAKE_OSX_SYSROOT}" "iphoneos" is_ios)
 string(COMPARE EQUAL "${CMAKE_BUILD_TYPE}" "DEBUG" is_debug)
 string(COMPARE EQUAL "${CMAKE_GENERATOR}" "Xcode" is_xcode)
 
-option(BUILD_SHARED_LIBS "Build shared libraries" ON)
+option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
+
+## only static libs for ios
+if(is_ios)
+  set(BUILD_SHARED_LIBS OFF)
+endif()
 
 ## the following are directories where stuff will be installed to
 ## (see taglib/CMakeLists.txt)
