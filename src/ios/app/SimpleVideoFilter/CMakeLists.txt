@@ -85,7 +85,7 @@ set_target_properties(
 
 target_link_libraries(
   SimpleVideoFilter
-  "-framework GPUOpenCV"
+  GPUOpenCV
   ${OpenCV_LIBS}
   GPUImage::gpuimage
   "-framework CoreGraphics"
