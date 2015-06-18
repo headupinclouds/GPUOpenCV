@@ -23,7 +23,7 @@ string(COMPARE EQUAL "${CMAKE_OSX_SYSROOT}" "iphoneos" is_ios)
 string(COMPARE EQUAL "${CMAKE_BUILD_TYPE}" "DEBUG" is_debug)
 string(COMPARE EQUAL "${CMAKE_GENERATOR}" "Xcode" is_xcode)
 
-option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
+option(BUILD_SHARED_LIBS "Build shared libraries" ON)
 
 ## only static libs for ios
 if(is_ios)
@@ -129,11 +129,6 @@ set(GPUOPENCV_SOVERSION_AGE      0)
 math(EXPR GPUOPENCV_SOVERSION_MAJOR "${GPUOPENCV_SOVERSION_CURRENT} - ${GPUOPENCV_SOVERSION_AGE}")
 math(EXPR GPUOPENCV_SOVERSION_MINOR "${GPUOPENCV_SOVERSION_AGE}")
 math(EXPR GPUOPENCV_SOVERSION_PATCH "${GPUOPENCV_SOVERSION_REVISION}")
-
-if(APPLE)
-  option(BUILD_FRAMEWORK "Build an OS X framework" OFF)
-  set(FRAMEWORK_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/Library/Frameworks" CACHE STRING "Directory to install frameworks to.")
-endif()
 
 include_directories(src/lib)
 add_subdirectory(src)
