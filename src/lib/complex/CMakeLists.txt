@@ -1,4 +1,3 @@
-project(complex)
 set(SRCS complex.cpp)
 set(HDRS_PUBLIC complex.hpp)
 set(HDRS ${HDRS_PUBLIC})

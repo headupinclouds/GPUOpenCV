@@ -13,7 +13,7 @@ HunterGate(
     FILEPATH "${custom_config}"
 )
 
-project(GPUOpenCV)
+project(GPUOpenCV VERSION 0.1.0)
 
 # See: cmake/Hunter/config.cmake
 hunter_add_package(Sugar)
@@ -53,6 +53,7 @@ set(CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}")
 include(ExternalProject) 
 include(hunter_cmake_args)
 include(ForEachPrepend)
+include(MergeStaticLibraries)
 include(MacroParallelMake) # support make -jN via command line -DMULTITHREADED_BUILD=8
 
 PARALLEL_MAKE()
@@ -107,28 +108,6 @@ if(APPLE)
 
   # https://github.com/ruslo/hunter/wiki/pkg.gpuimage
 endif()
-
-#
-# Testing versioned libs and Framework builds (based on https://github.com/taglib/taglib)
-#
-
-# Library configuration stuff 
-set(GPUOPENCV_LIB_MAJOR_VERSION "1")
-set(GPUOPENCV_LIB_MINOR_VERSION "0")
-set(GPUOPENCV_LIB_PATCH_VERSION "0")
-set(GPUOPENCV_LIB_VERSION_STRING "${GPUOPENCV_LIB_MAJOR_VERSION}.${GPUOPENCV_LIB_MINOR_VERSION}.${GPUOPENCV_LIB_PATCH_VERSION}")
-
-# 1. If the library source code has changed at all since the last update, then increment revision.
-# 2. If any interfaces have been added, removed, or changed since the last update, increment current, and set revision to 0.
-# 3. If any interfaces have been added since the last public release, then increment age.
-# 4. If any interfaces have been removed since the last public release, then set age to 0. 
-set(GPUOPENCV_SOVERSION_CURRENT  1)
-set(GPUOPENCV_SOVERSION_REVISION 0)
-set(GPUOPENCV_SOVERSION_AGE      0)
-
-math(EXPR GPUOPENCV_SOVERSION_MAJOR "${GPUOPENCV_SOVERSION_CURRENT} - ${GPUOPENCV_SOVERSION_AGE}")
-math(EXPR GPUOPENCV_SOVERSION_MINOR "${GPUOPENCV_SOVERSION_AGE}")
-math(EXPR GPUOPENCV_SOVERSION_PATCH "${GPUOPENCV_SOVERSION_REVISION}")
 
 include_directories(src/lib)
 add_subdirectory(src)

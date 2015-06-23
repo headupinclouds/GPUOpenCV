@@ -1,4 +1,3 @@
-project(simple)
 set(SRCS simple.cpp simple_private.cpp)
 set(HDRS_PUBLIC simple.hpp)
 set(HDRS ${HDRS_PUBLIC} simple_private.hpp)

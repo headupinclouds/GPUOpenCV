@@ -11,7 +11,6 @@
 # steps required to achieve this.
 
 cmake_minimum_required(VERSION 2.8.11)
-project (SimpleVideoFilter)
 
 include("$ENV{SUGAR_ROOT}/cmake/Sugar")
 include(sugar_include) # <= not used?
