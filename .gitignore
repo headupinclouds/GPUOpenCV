@@ -31,5 +31,6 @@
 
 *.*~
 
+_builds/*
 build/*
 .DS_Store
