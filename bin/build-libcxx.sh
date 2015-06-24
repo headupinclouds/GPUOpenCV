@@ -1,3 +1,9 @@
 #!/bin/bash
 
-build.py --toolchain libcxx --verbose --fwd HUNTER_CONFIGURATION_TYPES=Release --config Release --jobs 8 --clear --framework
+build.py --toolchain libcxx --verbose --fwd HUNTER_CONFIGURATION_TYPES=Release \
+BUILD_EXAMPLES=OFF \
+--config Release \
+--jobs 8 \
+--install \
+--clear
+

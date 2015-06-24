@@ -1,17 +1,24 @@
 # Create object libraries, then create master library
 # http://www.cmake.org/Wiki/CMake/Tutorials/Object_Library
-add_subdirectory (simple)
-add_subdirectory (complex)
+
+# Manage internal libraries w/ sugar cmake macros (below) instead of add_subdirectory()
+#add_subdirectory (simple)
+#add_subdirectory (complex)
+
+include(sugar_include)
+sugar_include(.)
+
+list(APPEND GPUOPENCV_PUBLIC_HDRS 
+  ${GPUOPENCV_COMPLEX_PUBLIC_HDRS} 
+  ${GPUOPENCV_SIMPLE_PUBLIC_HDRS}
+)
 
 #
 # Build and install a single library or framework from our set of object libraries
 #
 
-set(GPUOPENCV_SRCS master.hpp master.cpp)
-set(GPUOPENCV_PUBLIC_HDRS ${COMPLEX_PUBLIC_HDRS} ${SIMPLE_PUBLIC_HDRS} master.hpp)
-
-message("GPUOPENCV_PUBLIC_HDRS ${GPUOPENCV_PUBLIC_HDRS}")
-
+add_library(simple OBJECT ${GPUOPENCV_SIMPLE_SRCS})
+add_library(complex OBJECT ${GPUOPENCV_COMPLEX_SRCS})
 add_library(GPUOpenCV ${GPUOPENCV_SRCS} $<TARGET_OBJECTS:simple> $<TARGET_OBJECTS:complex>)
 
 set_target_properties(GPUOpenCV PROPERTIES
@@ -36,9 +43,9 @@ install(TARGETS GPUOpenCV
 ##### install #####
 ###################
 
-set(CMAKE_PROJECT_NAME GPUOpenCV) # overwrite drishtisdk
+message("========== GPUOPENCV_PUBLIC_HDRS ${GPUOPENCV_PUBLIC_HDRS} ==============")
 
-message("========== TARGET_PUBLIC_HDRS ${TARGET_PUBLIC_HDRS} ==============")
+set(CMAKE_PROJECT_NAME GPUOpenCV) # overwrite drishtisdk
 
 set(generated_dir "${CMAKE_CURRENT_BINARY_DIR}/generated")
 set(include_install_dir "include")
