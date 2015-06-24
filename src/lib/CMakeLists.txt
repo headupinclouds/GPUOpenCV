@@ -17,6 +17,8 @@ add_library(simple OBJECT ${GPUOPENCV_SIMPLE_SRCS})
 add_library(complex OBJECT ${GPUOPENCV_COMPLEX_SRCS})
 add_library(GPUOpenCV ${GPUOPENCV_SRCS} $<TARGET_OBJECTS:simple> $<TARGET_OBJECTS:complex>)
 
+target_link_libraries(GPUOpenCV PRIVATE ${OpenCV_LIBS})
+
 set_target_properties(GPUOpenCV PROPERTIES
   CXX_VISIBILITY_PRESET hidden  ### HIDE
   VISIBILITY_INLINES_HIDDEN ON
