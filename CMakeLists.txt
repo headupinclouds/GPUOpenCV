@@ -74,22 +74,33 @@ PARALLEL_MAKE()
 #   ZLIB_LIBRARIES      - List of libraries when using zlib.
 #   ZLIB_FOUND          - True if zlib found.
 hunter_add_package(ZLIB)
-find_package(ZLIB CONFIG)
+find_package(ZLIB CONFIG REQUIRED)
 
 #   TIFF_INCLUDE_DIR, where to find tiff.h, etc.
 #   TIFF_LIBRARIES, libraries to link against to use TIFF.
 #   TIFF_FOUND, If false, do not try to use TIFF.
 hunter_add_package(TIFF)
-find_package(TIFF CONFIG)
+find_package(TIFF CONFIG REQUIRED)
 
 hunter_add_package(OpenCV)
-find_package(OpenCV CONFIG REQUIRED)
+find_package(OpenCV REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
 
 # (((((( Boost ))))))
-
 hunter_add_package(Boost COMPONENTS system filesystem serialization)
-find_package(Boost COMPONENTS system filesystem serialization)
+find_package(Boost CONFIG REQUIRED system filesystem serialization)
+
+################
+###TEST ERROR###
+################
+option(TEST_SCOPE_ISSUE "Test scope issue with static lib::lib dependencies" OFF)
+if(TEST_SCOPE_ISSUE)
+  add_definitions(-DTEST_SCOPE_ISSUE=1)
+  set(TEST_SCOPE_ISSUE_LIBS
+    Boost::filesystem # Use this artificially in libsimple to test static libs
+    Boost::system 
+    )
+endif()
 
 # https://github.com/ruslo/hunter/wiki/pkg.boost
 
@@ -103,21 +114,15 @@ if(is_ios)
   #target_compile_definitions(sober PUBLIC BOOST_SP_NO_SYNC)
 endif()
 
-message("OK HERE A")
-
 # ((((((( CVMATIO )))))))
 #hunter_add_package(cvmatio) 
 #find_package(cvmatio REQUIRED CONFIG)
 
-message("OK HERE")
-
 # (((((( GPUIMAGE ))))))
 if(APPLE)
-
   # GPUImage apps are enabled on both iOS and OS X
   hunter_add_package(GPUImage)
   find_package(GPUImage CONFIG) # ${GPUIMAGE_INCLUDE_DIR} ${GPUIMAGE_LIBRARY} ${GPUIMAGE_FOUND}
-
   # https://github.com/ruslo/hunter/wiki/pkg.gpuimage
 endif()
 
