@@ -1,10 +1,6 @@
 # Create object libraries, then create master library
 # http://www.cmake.org/Wiki/CMake/Tutorials/Object_Library
 
-# Manage internal libraries w/ sugar cmake macros (below) instead of add_subdirectory()
-#add_subdirectory (simple)
-#add_subdirectory (complex)
-
 include(sugar_include)
 sugar_include(.)
 
