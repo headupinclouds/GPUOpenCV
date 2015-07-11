@@ -37,11 +37,6 @@ if(APPLE)
   endif()
 endif()
 
-## only static libs for ios
-if(is_ios)
-  set(BUILD_SHARED_LIBS OFF)
-endif()
-
 ## the following are directories where stuff will be installed to
 ## (see taglib/CMakeLists.txt)
 set(LIB_SUFFIX_TXT "Define suffix of directory name (32/64)")
