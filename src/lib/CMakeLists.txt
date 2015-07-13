@@ -22,6 +22,15 @@ target_link_libraries(GPUOpenCV PRIVATE
   ${TEST_SCOPE_ISSUE_LIBS} # Conditionally defined
   )
 
+if(APPLE)
+  target_link_libraries(
+      GPUOpenCV
+      PRIVATE
+      "-Wl,-exported_symbols_list"
+      "${CMAKE_CURRENT_LIST_DIR}/../../exports/apple"
+  )
+endif()
+
 set_target_properties(GPUOpenCV PROPERTIES
   CXX_VISIBILITY_PRESET hidden  ### HIDE
   VISIBILITY_INLINES_HIDDEN ON
