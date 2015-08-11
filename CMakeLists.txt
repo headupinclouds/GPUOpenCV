@@ -78,6 +78,11 @@ hunter_add_package(TIFF)
 find_package(TIFF CONFIG REQUIRED)
 
 hunter_add_package(OpenCV)
+if(MSVC)
+  # By default OpenCV built as a static library. OpenCVConfig will test
+  # BUILD_SHARED_LIBS to choose variant but BUILD_SHARED_LIBS is set to ON.
+  set(OpenCV_STATIC ON)
+endif()
 find_package(OpenCV REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
 
