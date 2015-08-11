@@ -10,6 +10,7 @@
 #include <memory>
 #include <iomanip>
 #include <thread>
+#include <mutex>
 
 const char *version = "0.1";
 
