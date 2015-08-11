@@ -8,8 +8,8 @@ configure_file(cmake/Hunter/config.cmake "${custom_config}" @ONLY)
 include("cmake/HunterGate.cmake")
 ### Hunter snapshot that will be used ###
 HunterGate(
-    URL "https://github.com/ruslo/hunter/archive/v0.8.13.tar.gz"
-    SHA1 "7103f0ab481523ca93a06c1c55abcd56741d3a97"
+    URL "https://github.com/ruslo/hunter/archive/v0.12.5.tar.gz"
+    SHA1 "a54fad3f61e35ba43ccede0c57c1a12e37e95e5f"
     FILEPATH "${custom_config}"
 )
 
