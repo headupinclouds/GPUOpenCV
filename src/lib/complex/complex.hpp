@@ -4,12 +4,14 @@
 #include <numeric>
 #include <cmath>
 
+#include <gpuopencv_export.h> // GPUOPENCV_EXPORT
+
 #define _BEGIN_COMPLEX namespace complex {
 #define _END_COMPLEX }
 
 _BEGIN_COMPLEX
 
-class GPUOpenCVComplex
+class GPUOPENCV_EXPORT GPUOpenCVComplex
 {
 public:
     GPUOpenCVComplex();

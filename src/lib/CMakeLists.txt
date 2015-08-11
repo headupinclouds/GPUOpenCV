@@ -17,6 +17,15 @@ add_library(simple OBJECT ${GPUOPENCV_SIMPLE_SRCS})
 add_library(complex OBJECT ${GPUOPENCV_COMPLEX_SRCS})
 add_library(GPUOpenCV ${GPUOPENCV_SRCS} $<TARGET_OBJECTS:simple> $<TARGET_OBJECTS:complex>)
 
+include(GenerateExportHeader)
+generate_export_header(GPUOpenCV)
+
+target_include_directories(GPUOpenCV PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>")
+
+# Note: this will be handled automatically in case simple/complex is not an OBJECT libraries
+target_include_directories(simple PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>")
+target_include_directories(complex PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>")
+
 target_link_libraries(GPUOpenCV PRIVATE 
   ${OpenCV_LIBS} 
   ${TEST_SCOPE_ISSUE_LIBS} # Conditionally defined
@@ -87,6 +96,12 @@ install(
   FILES 
   ${GPUOPENCV_PUBLIC_HDRS}
   DESTINATION "${include_install_dir}/${CMAKE_PROJECT_NAME}"
+  )
+
+install(
+  FILES
+  "${CMAKE_CURRENT_BINARY_DIR}/gpuopencv_export.h"
+  DESTINATION "${include_install_dir}"
   )
 
 install(
