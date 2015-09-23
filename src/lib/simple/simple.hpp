@@ -1,13 +1,14 @@
 #ifndef GPUOPENCV_SIMPLE_H
 #define GPUOPENCV_SIMPLE_H
 
+#include <gpuopencv_export.h> // GPUOPENCV_EXPORT
 
 #define _BEGIN_SIMPLE namespace simple {
 #define _END_SIMPLE }
 
 _BEGIN_SIMPLE
 
-class GPUOpenCVSimple
+class GPUOPENCV_EXPORT GPUOpenCVSimple
 {
 public:
     GPUOpenCVSimple();
